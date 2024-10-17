@@ -27,19 +27,19 @@ public class User {
     String position;
     String expirience;
     String messenger;
-    int phone_number;
+    int phoneNumber;
     String skills;
-    String area_of_responsibility;
+    String areaOfResponsibility;
     int age;
     boolean visibility;
 
-     public User(String name, String lastname, int age, String position, String messenger, int phone_number) {
+     public User(String name, String lastname, int age, String position, String messenger, int phoneNumber) {
          this.name = name;
          this.lastname = lastname;
          this.age = age;
          this.position = position;
          this.messenger = messenger;
-         this.phone_number = phone_number;
+         this.phoneNumber = phoneNumber;
      }
 
      public void setName(String name) {
@@ -88,7 +88,7 @@ public class User {
 
     public void setPhone_number(int phone_number) {
         if(phone_number == 11) {
-            this.phone_number = phone_number;
+            this.phoneNumber = phone_number;
         } else {
             System.out.println("Должность слишком длинная");
         }
@@ -100,7 +100,7 @@ public class User {
 
     public void setArea_of_responsibility(String area_of_responsibility) {
         if(area_of_responsibility.length() < 100) {
-            this.area_of_responsibility = area_of_responsibility;
+            this.areaOfResponsibility = area_of_responsibility;
         } else {
             System.out.println("Зона ответственности слишком длинная");
         }
@@ -131,7 +131,7 @@ public class User {
     }
 
     public int getPhone_number() {
-        return phone_number;
+        return phoneNumber;
     }
 
     public String getSkills() {
@@ -139,7 +139,7 @@ public class User {
     }
 
     public String getArea_of_responsibility() {
-        return area_of_responsibility;
+        return areaOfResponsibility;
     }
 
     public int getAge() {
