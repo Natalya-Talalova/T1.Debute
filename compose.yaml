@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: postgres_db
       PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
+    ports:   
       - "5430:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data/pgdata
