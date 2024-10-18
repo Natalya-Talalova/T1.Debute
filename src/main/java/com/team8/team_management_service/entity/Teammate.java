@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 @Entity(name = "teammates")
 public class Teammate {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

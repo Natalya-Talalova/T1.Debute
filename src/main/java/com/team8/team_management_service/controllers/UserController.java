@@ -20,35 +20,28 @@ public class UserController {
     // Получение списка всех пользователей
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<UserDto> users = userService.getAllUsers();
+        List<UserDto> users = userService.findAll();
         return ResponseEntity.ok(users);
     }
 
     // Получение пользователя по ID
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-        UserDto user = userService.getUserById(id);
+        UserDto user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
 
     // Создание нового пользователя
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        UserDto createdUser = userService.createUser(userDto);
+        UserDto createdUser = userService.save(userDto);
         return ResponseEntity.ok(createdUser);
-    }
-
-    // Обновление пользователя по ID
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
-        UserDto updatedUser = userService.updateUser(id, userDto);
-        return ResponseEntity.ok(updatedUser);
     }
 
     // Удаление пользователя по ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+        userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
