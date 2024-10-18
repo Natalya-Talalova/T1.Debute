@@ -1,20 +1,15 @@
 package com.team8.team_management_service.mapper;
 
 import com.team8.team_management_service.dto.TeamDto;
-import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
-import com.team8.team_management_service.entity.User;
-import java.util.List;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants.ComponentModel;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING)
-public interface TeamMapper extends
-    BaseMapper<TeamDto, Team> {
+import java.util.List;
+
+import org.mapstruct.*;
+import org.mapstruct.MappingConstants.ComponentModel;
+
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+public interface TeamMapper extends BaseMapper<TeamDto, Team> {
 
     @Override
     Team toEntity(TeamDto dto);
@@ -31,5 +26,6 @@ public interface TeamMapper extends
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Team partialUpdate(
-        TeamDto teamDto, @MappingTarget Team team);
+            TeamDto teamDto, @MappingTarget Team team);
+
 }

@@ -16,6 +16,10 @@ import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import jakarta.persistence.*;
+
+import java.util.*;
+
 import org.hibernate.proxy.HibernateProxy;
 
 @Entity
@@ -63,6 +67,8 @@ public class User {
     }
 
     public void setName(String name) {
+
+     public void setName(String name) {
          if(name.length() < 100) {
              this.name = name;
          } else {
@@ -186,13 +192,10 @@ public class User {
         return visibility;
     }
 
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinTable(name = "team_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-  Set<Team> teams;
-
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinTable(name = "invited_team_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-  Set<Team> invitedTeams;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", nullable = false)
+  private Long id;
 
   @Override
   public final boolean equals(Object o) {

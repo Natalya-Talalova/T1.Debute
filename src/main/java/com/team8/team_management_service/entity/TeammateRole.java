@@ -10,27 +10,30 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+
 import java.util.Collection;
 import java.util.Objects;
+
+import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
 
-@Entity(name = "team_role")
-public class TeamRole {
+@Entity(name = "teammate_roles")
+public class TeammateRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 256, nullable = false)
+    @Size(min = 2, max = 256, message = "Name must be between 2 and 256 characters")
     private String name;
 
-    @ElementCollection(targetClass = TeamRoleAccess.class)
+    @ElementCollection(targetClass = TeammatePermission.class)
     @CollectionTable(name="team_role_access", joinColumns = @JoinColumn(name="team_role_id"))
     @Enumerated(EnumType.STRING)
     @Column(name="team_role_access")
-    private Collection<TeamRoleAccess> teamRoleAccess;
+    private Collection<TeammatePermission> teammatePermissions;
 
     public Long getId() {
         return id;
@@ -65,8 +68,8 @@ public class TeamRole {
         if (thisEffectiveClass != oEffectiveClass) {
             return false;
         }
-        TeamRole teamRole = (TeamRole) o;
-        return getId() != null && Objects.equals(getId(), teamRole.getId());
+        TeammateRole teammateRole = (TeammateRole) o;
+        return getId() != null && Objects.equals(getId(), teammateRole.getId());
     }
 
     @Override
