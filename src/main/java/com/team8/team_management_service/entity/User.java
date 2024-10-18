@@ -8,9 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.util.Objects;
-
-
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
@@ -87,8 +84,8 @@ public class User {
         this.position = position;
     }
 
-    public void setExpirience(String expirience) {
-        this.expirience = expirience;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
     public void setMessenger(String messenger) {
@@ -143,8 +140,8 @@ public class User {
         return position;
     }
 
-    public String getExpirience() {
-        return expirience;
+    public String getExperience() {
+        return experience;
     }
 
     public String getMessenger() {
