@@ -3,6 +3,7 @@ package com.team8.team_management_service.services;
 import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.User;
 import com.team8.team_management_service.mapper.UserMapper;
+import com.team8.team_management_service.mapper.UserMapperImpl;
 import com.team8.team_management_service.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,15 @@ public interface UserService{
 
     @Autowired
     private UserRepository userRepository;
+    private UserMapper userMapper = new UserMapperImpl();
 
-    public static boolean authenticate(String username, String password) {
+    @Autowired
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
+
+    public default boolean authenticate(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isPresent()) {
@@ -34,16 +42,6 @@ public interface UserService{
             return user.getPassword().equals(password);
         }
         return false;
-    }
-
-    boolean authenticate(String username, String password);
-
-    private final UserRepository userRepository;
-    private final UserMapper userMapper; // Используется для преобразования User в UserDto и обратно
-
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
     // Получение всех пользователей

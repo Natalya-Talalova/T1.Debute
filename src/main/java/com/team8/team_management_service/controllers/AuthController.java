@@ -2,28 +2,28 @@ package com.team8.team_management_service.controllers;
 
 import com.team8.team_management_service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    private UserService userService;
 
-    // Авторизация пользователя
+    private final UserService userService;
+
+    @Autowired
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        boolean isAuthenticated = UserService.authenticate(username, password);
+        boolean authenticated = UserService.authenticate(username, password);
 
-        if (isAuthenticated) {
-            return ResponseEntity.ok("User successfully authenticated!");
+        if (authenticated) {
+            return ResponseEntity.ok("Authentication successful");
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            return ResponseEntity.status(401).body("Invalid username or password");
         }
     }
 }
