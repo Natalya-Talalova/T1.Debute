@@ -1,16 +1,13 @@
 package com.team8.team_management_service.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import java.util.Objects;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -71,6 +68,19 @@ public class User {
     @Column(name = "visibility", nullable = false)
     @NotNull
     boolean visibility;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Teammate> teammates = new ArrayList<>();
+
+    public void addTeammate(Teammate teammate) {
+        teammates.add(teammate);
+        teammate.setUser(this);
+    }
+
+    public void removeTeammate(Teammate teammate) {
+        teammates.remove(teammate);
+        teammate.setUser(null);
+    }
 
     public void setName(String name) {
         this.name = name;

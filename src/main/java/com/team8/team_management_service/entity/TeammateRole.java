@@ -1,23 +1,16 @@
 package com.team8.team_management_service.entity;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-
-import java.util.Collection;
-import java.util.Objects;
-
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
 
-@Entity(name = "teammate_roles")
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "teammate_roles")
 public class TeammateRole {
 
     @Id
@@ -29,11 +22,28 @@ public class TeammateRole {
     @Size(min = 2, max = 256, message = "Name must be between 2 and 256 characters")
     private String name;
 
+    //TODO: rewrite this
     @ElementCollection(targetClass = TeammatePermission.class)
-    @CollectionTable(name="team_role_access", joinColumns = @JoinColumn(name="team_role_id"))
+    @CollectionTable(
+            name = "teammate_role_permissions",
+            joinColumns = @JoinColumn(name = "teammate_role_id")
+    )
     @Enumerated(EnumType.STRING)
-    @Column(name="team_role_access")
-    private Collection<TeammatePermission> teammatePermissions;
+    @Column(name = "permission")
+    private Set<TeammatePermission> permissions;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Teammate> teammates = new ArrayList<>();
+
+    public void addTeammate(Teammate teammate) {
+        teammates.add(teammate);
+        teammate.setRole(this);
+    }
+
+    public void removeTeammate(Teammate teammate) {
+        teammates.remove(teammate);
+        teammate.setRole(null);
+    }
 
     public Long getId() {
         return id;

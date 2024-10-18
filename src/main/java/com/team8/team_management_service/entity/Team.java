@@ -1,13 +1,15 @@
 package com.team8.team_management_service.entity;
 
 import jakarta.persistence.*;
-
-import java.util.Objects;
-
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
 
-@Entity(name = "teams")
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
+
+@Entity
+@Table(name = "teams")
 public class Team {
 
     @Id
@@ -22,6 +24,19 @@ public class Team {
     @Column(name = "description", length = 256, nullable = false)
     @Size(min = 2, max = 256, message = "Description must be between 2 and 256 characters")
     private String description;
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Teammate> teammates = new ArrayList<>();
+
+    public void addTeammate(Teammate teammate) {
+        teammates.add(teammate);
+        teammate.setTeam(this);
+    }
+
+    public void removeTeammate(Teammate teammate) {
+        teammates.remove(teammate);
+        teammate.setTeam(null);
+    }
 
     public Long getId() {
         return id;
