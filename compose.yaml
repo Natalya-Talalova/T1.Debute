@@ -38,6 +38,17 @@ services:
     tty: true
     stdin_open: true
 
+#  team-management-service:
+#    image: team-management-service
+#    container_name: team-management-service_container
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - postgres
+#    restart: unless-stopped
+#    tty: true
+#    stdin_open: true
+
 volumes:
   pgdata:
     driver: local

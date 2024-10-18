@@ -1,15 +1,12 @@
 package com.team8.team_management_service.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
+
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
+
+import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "teams")
@@ -20,27 +17,14 @@ public class Team {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 256, nullable = false)
+    @Size(min = 2, max = 256, message = "Name must be between 2 and 256 characters")
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 256, nullable = false)
+    @Size(min = 2, max = 256, message = "Description must be between 2 and 256 characters")
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "teams", cascade = {CascadeType.DETACH,
-        CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<User> users;
-
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "invitedTeams", cascade = {CascadeType.DETACH,
-        CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<User> invitedUsers;
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public Set<User> getInvitedUsers() {
-        return invitedUsers;
-    }
 
     public Long getId() {
         return id;

@@ -1,19 +1,10 @@
 package com.team8.team_management_service.entity;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import java.util.Objects;
-import java.util.Set;
+import jakarta.persistence.*;
+
+import java.util.*;
+
 import org.hibernate.proxy.HibernateProxy;
 
 @Entity
@@ -32,16 +23,7 @@ public class User {
     String area_of_responsibility;
     int age;
     boolean visibility;
-
-     public User(String name, String lastname, int age, String position, String messenger, int phone_number) {
-         this.name = name;
-         this.lastname = lastname;
-         this.age = age;
-         this.position = position;
-         this.messenger = messenger;
-         this.phone_number = phone_number;
-     }
-
+    
      public void setName(String name) {
          if(name.length() < 100) {
              this.name = name;
@@ -149,19 +131,11 @@ public class User {
     public boolean isVisibility() {
         return visibility;
     }
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
-
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinTable(name = "team_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-  Set<Team> teams;
-
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinTable(name = "invited_team_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-  Set<Team> invitedTeams;
 
   @Override
   public final boolean equals(Object o) {

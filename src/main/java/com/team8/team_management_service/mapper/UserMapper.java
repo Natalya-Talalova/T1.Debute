@@ -4,8 +4,10 @@ import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.User;
 import java.util.List;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper extends BaseMapper<UserDto, User> {
 
     @Override
