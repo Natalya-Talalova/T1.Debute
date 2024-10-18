@@ -2,9 +2,7 @@ package com.team8.team_management_service.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
@@ -24,7 +22,6 @@ public class Team {
     @Column(name = "description", length = 256, nullable = false)
     @Size(min = 2, max = 256, message = "Description must be between 2 and 256 characters")
     private String description;
-
 
     public Long getId() {
         return id;

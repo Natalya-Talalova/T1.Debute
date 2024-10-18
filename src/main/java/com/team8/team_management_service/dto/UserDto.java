@@ -1,6 +1,5 @@
 package com.team8.team_management_service.dto;
 
-import com.team8.team_management_service.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -8,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * DTO for {@link User}
+ * DTO for {@link com.team8.team_management_service.entity.User}
  */
 public class UserDto implements Serializable {
 
@@ -16,6 +15,12 @@ public class UserDto implements Serializable {
     @Size(message = "Имя должно быть длиной от 2 до 256 символов", min = 2, max = 256)
     @NotBlank
     private final String name;
+    @Size(message = "Имя должно быть длиной от 2 до 256 символов", min = 2, max = 256)
+    @NotBlank
+    private final String username;
+    @Size(message = "Пароль должен быть длиной от 2 до 256 символов", min = 2, max = 256)
+    @NotBlank
+    private final String password;
     @Size(message = "Фамилия должна быть длиной от 2 до 256 символов", min = 2, max = 256)
     @NotBlank
     private final String lastname;
@@ -24,7 +29,7 @@ public class UserDto implements Serializable {
     private final String position;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
-    private final String expirience;
+    private final String experience;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final String messenger;
@@ -43,62 +48,33 @@ public class UserDto implements Serializable {
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final boolean visibility;
-    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
-    @NotBlank
-    private final String username;
 
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", position='" + position + '\'' +
-                ", expirience='" + expirience + '\'' +
-                ", messenger='" + messenger + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", skills='" + skills + '\'' +
-                ", areaOfResponsibility='" + areaOfResponsibility + '\'' +
-                ", age=" + age +
-                ", visibility=" + visibility +
-                ", username='" + username + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDto userDto = (UserDto) o;
-        return phoneNumber == userDto.phoneNumber && age == userDto.age && visibility == userDto.visibility && Objects.equals(id, userDto.id) && Objects.equals(name, userDto.name) && Objects.equals(lastname, userDto.lastname) && Objects.equals(position, userDto.position) && Objects.equals(expirience, userDto.expirience) && Objects.equals(messenger, userDto.messenger) && Objects.equals(skills, userDto.skills) && Objects.equals(areaOfResponsibility, userDto.areaOfResponsibility) && Objects.equals(username, userDto.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, lastname, position, expirience, messenger, phoneNumber, skills, areaOfResponsibility, age, visibility, username);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public UserDto(Long id, String name, String lastname, String position, String expirience, String messenger, int phoneNumber, String skills, String areaOfResponsibility, int age, boolean visibility, String username) {
+    public UserDto(Long id, String username, String password, String name, String lastname, String position, String experience, String messenger, int phoneNumber, String skills, String areaOfResponsibility, int age, boolean visibility) {
         this.id = id;
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.lastname = lastname;
         this.position = position;
-        this.expirience = expirience;
+        this.experience = experience;
         this.messenger = messenger;
         this.phoneNumber = phoneNumber;
         this.skills = skills;
         this.areaOfResponsibility = areaOfResponsibility;
         this.age = age;
         this.visibility = visibility;
-        this.username = username;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
@@ -113,8 +89,8 @@ public class UserDto implements Serializable {
         return position;
     }
 
-    public String getExpirience() {
-        return expirience;
+    public String getExperience() {
+        return experience;
     }
 
     public String getMessenger() {
@@ -137,8 +113,50 @@ public class UserDto implements Serializable {
         return age;
     }
 
-    public boolean isVisibility() {
+    public boolean getVisibility() {
         return visibility;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDto entity = (UserDto) o;
+        return Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.username, entity.username) &&
+                Objects.equals(this.password, entity.password) &&
+                Objects.equals(this.name, entity.name) &&
+                Objects.equals(this.lastname, entity.lastname) &&
+                Objects.equals(this.position, entity.position) &&
+                Objects.equals(this.experience, entity.experience) &&
+                Objects.equals(this.messenger, entity.messenger) &&
+                Objects.equals(this.phoneNumber, entity.phoneNumber) &&
+                Objects.equals(this.skills, entity.skills) &&
+                Objects.equals(this.areaOfResponsibility, entity.areaOfResponsibility) &&
+                Objects.equals(this.age, entity.age) &&
+                Objects.equals(this.visibility, entity.visibility);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, name, lastname, position, experience, messenger, phoneNumber, skills, areaOfResponsibility, age, visibility);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "username = " + username + ", " +
+                "password = " + password + ", " +
+                "name = " + name + ", " +
+                "lastname = " + lastname + ", " +
+                "position = " + position + ", " +
+                "expirience = " + experience + ", " +
+                "messenger = " + messenger + ", " +
+                "phoneNumber = " + phoneNumber + ", " +
+                "skills = " + skills + ", " +
+                "areaOfResponsibility = " + areaOfResponsibility + ", " +
+                "age = " + age + ", " +
+                "visibility = " + visibility + ")";
+    }
 }

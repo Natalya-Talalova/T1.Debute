@@ -1,18 +1,20 @@
 package com.team8.team_management_service.services;
 
 import com.team8.team_management_service.dto.UserDto;
+import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.User;
 import com.team8.team_management_service.exception.CustomEntityNotFoundException;
 import com.team8.team_management_service.mapper.UserMapper;
-import java.util.List;
-
 import com.team8.team_management_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Service
-public abstract class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
@@ -22,33 +24,26 @@ public abstract class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
-        return UserService.super.getAllUsers();
+    public UserDto create(UserDto userDto) {
+        User entity = userMapper.toEntity(userDto);
+        entity = userRepository.save(entity);
+        return userMapper.toDto(entity);
     }
 
     @Override
-    public UserDto getUserById(Long id) {
-        return UserService.super.getUserById(id);
+    public UserDto update(UserDto user, Long id) {
+        User entity = userRepository.findById(id)
+                .orElseThrow(() -> new CustomEntityNotFoundException(User.class, id));
+        User updatedUser = userMapper.partialUpdate(user, entity);
+        return userMapper.toDto(updatedUser);
     }
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        return UserService.super.createUser(userDto);
-    }
-
-    @Override
-    public UserDto updateUser(Long id, UserDto userDto) {
-        return UserService.super.updateUser(id, userDto);
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        UserService.super.deleteUser(id);
-    }
-
-    @Override
-    public List<UserDto> findAll() {
-        return userMapper.toDtoList(userRepository.findAll());
+    public void delete(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new CustomEntityNotFoundException(User.class, id);
+        }
+        userRepository.deleteById(id);
     }
 
     @Override
@@ -56,35 +51,15 @@ public abstract class UserServiceImpl implements UserService {
     public UserDto findById(Long id) {
         return userRepository.findById(id)
                 .map(userMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("User not found with id " + id));
+                .orElseThrow(() -> new CustomEntityNotFoundException(User.class, id));
     }
 
     @Override
-    public void delete(Long id) {
-        if (userRepository.findById(id).isPresent()) {
-            userRepository.deleteById(id);
-        }
-    }
-
-    @Override
-    public UserDto save(UserDto user) {
-        User entity = userMapper.toEntity(user);
-        entity = userRepository.save(entity);
-        return userMapper.toDto(entity);
-    }
-
-    @Override
-    public void update(UserDto user) {
-        if (!userRepository.existsById(user.getId())) {
-            throw new CustomEntityNotFoundException(User.class, user.getId());
-        }
-        User entity = userMapper.toEntity(user);
-        userRepository.save(entity);
-    }
-
-    @Override
-    public boolean authenticate(String username, String password) {
-        return false;
+    public List<UserDto> findAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toDto)
+                .toList();
     }
 
 }

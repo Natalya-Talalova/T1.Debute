@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 
 import java.util.Objects;
 
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
@@ -46,7 +48,7 @@ public class User {
 
     @Column(name = "experience", nullable = false, length = 2048)
     @Size(min = 2, max = 2048, message = "Expirience must be between 2 and 2048 characters")
-    String expirience;
+    String experience;
 
     @Column(name = "messenger", nullable = false, length = 256)
     @Size(min = 2, max = 256, message = "Messenger must be between 2 and 256 characters")
@@ -59,6 +61,7 @@ public class User {
     @Column(name = "skills", nullable = false, length = 2048)
     @Size(min = 2, max = 2048, message = "Skills must be between 2 and 2048 characters")
     String skills;
+
 
     @Column(name = "area_of_responsibility", nullable = false, length = 512)
     @Size(min = 2, max = 512, message = "Area of responsibility must be between 2 and 512 characters")
@@ -194,6 +197,5 @@ public class User {
     return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer()
         .getPersistentClass().hashCode() : getClass().hashCode();
   }
-
 
 }
