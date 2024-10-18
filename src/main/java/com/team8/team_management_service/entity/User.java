@@ -1,25 +1,16 @@
 package com.team8.team_management_service.entity;
 
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-import jakarta.persistence.*;
 
-import java.util.*;
-
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
 
 @Entity
@@ -34,102 +25,87 @@ public class User {
     private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
+    @Size(min = 2, max = 256, message = "Username must be between 2 and 256 characters")
     private String username;
 
     @Column(name = "password", nullable = false)
+    @Size(min = 8, max = 256, message = "Password must be between 8 and 256 characters")
     private String password;
 
+    @Column(name = "name", nullable = false, length = 256)
+    @Size(min = 2, max = 256, message = "Name must be between 2 and 256 characters")
     String name;
+
+    @Column(name = "lastname", nullable = false, length = 256)
+    @Size(min = 2, max = 256, message = "lastname must be between 2 and 256 characters")
     String lastname;
+
+    @Column(name = "position", nullable = false, length = 256)
+    @Size(min = 2, max = 256, message = "Position must be between 2 and 256 characters")
     String position;
+
+    @Column(name = "experience", nullable = false, length = 2048)
+    @Size(min = 2, max = 2048, message = "Expirience must be between 2 and 2048 characters")
     String expirience;
+
+    @Column(name = "messenger", nullable = false, length = 256)
+    @Size(min = 2, max = 256, message = "Messenger must be between 2 and 256 characters")
     String messenger;
+
+    @Column(name = "phone_number", nullable = false, length = 11)
+    @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
     int phoneNumber;
+
+    @Column(name = "skills", nullable = false, length = 2048)
+    @Size(min = 2, max = 2048, message = "Skills must be between 2 and 2048 characters")
     String skills;
+
+    @Column(name = "area_of_responsibility", nullable = false, length = 512)
+    @Size(min = 2, max = 512, message = "Area of responsibility must be between 2 and 512 characters")
     String areaOfResponsibility;
+
+    @Column(name = "age", nullable = false, length = 3)
+    @Size(min = 1, max = 3, message = "Age must be between 1 and 3 characters")
     int age;
+
+    @Column(name = "visibility", nullable = false)
+    @NotNull
     boolean visibility;
 
-     public User(String name, String lastname, int age, String position, String messenger, int phoneNumber, String skills, String areaOfResponsibility, boolean visibility) {
-         this.name = name;
-         this.lastname = lastname;
-         this.age = age;
-         this.position = position;
-         this.messenger = messenger;
-         this.phoneNumber = phoneNumber;
-         this.skills = skills;
-         this.areaOfResponsibility = areaOfResponsibility;
-         this.visibility = visibility;
-     }
-
-    public User() {
-
-    }
-
     public void setName(String name) {
-
-     public void setName(String name) {
-         if(name.length() < 100) {
-             this.name = name;
-         } else {
-             System.out.println("Имя слишком длинное");
-         }
-     }
+        this.name = name;
+    }
 
     public void setLastname(String lastname) {
-        if(lastname.length() < 100) {
-            this.lastname = lastname;
-        } else {
-            System.out.println("Фамилия слишком длинная");
-        }
-    }
-
-    public void setAge(int age) {
-        if(age < 0) {
-            this.age = age;
-        } else {
-            System.out.println("Возраст не может быть отрицательным");
-        }
+        this.lastname = lastname;
     }
 
     public void setPosition(String position) {
-        if(position.length() < 100) {
-            this.position = position;
-        } else {
-            System.out.println("Должность слишком длинная");
-        }
+        this.position = position;
     }
 
     public void setExpirience(String expirience) {
-         this.expirience = expirience;
+        this.expirience = expirience;
     }
 
     public void setMessenger(String messenger) {
-        if(messenger.length() < 100) {
-            this.messenger = messenger;
-        } else {
-            System.out.println("Мессенджер слишком длинный");
-        }
+        this.messenger = messenger;
     }
 
-    public void setPhone_number(int phone_number) {
-        if(phone_number == 11) {
-            this.phoneNumber = phone_number;
-        } else {
-            System.out.println("Должность слишком длинная");
-        }
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setSkills(String skills) {
-            this.skills = skills;
-        }
+        this.skills = skills;
+    }
 
-    public void setArea_of_responsibility(String area_of_responsibility) {
-        if(area_of_responsibility.length() < 100) {
-            this.areaOfResponsibility = area_of_responsibility;
-        } else {
-            System.out.println("Зона ответственности слишком длинная");
-        }
+    public void setAreaOfResponsibility(String areaOfResponsibility) {
+        this.areaOfResponsibility = areaOfResponsibility;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getUsername() {
@@ -191,11 +167,6 @@ public class User {
     public boolean isVisibility() {
         return visibility;
     }
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", nullable = false)
-  private Long id;
 
   @Override
   public final boolean equals(Object o) {
