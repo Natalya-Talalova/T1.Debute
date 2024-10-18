@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import org.hibernate.proxy.HibernateProxy;
@@ -21,6 +23,17 @@ import org.hibernate.proxy.HibernateProxy;
 public class User {
 
     //TODO Profile picture, opportunity to be added to the team
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     String name;
     String lastname;
@@ -33,16 +46,23 @@ public class User {
     int age;
     boolean visibility;
 
-     public User(String name, String lastname, int age, String position, String messenger, int phoneNumber) {
+     public User(String name, String lastname, int age, String position, String messenger, int phoneNumber, String skills, String areaOfResponsibility, boolean visibility) {
          this.name = name;
          this.lastname = lastname;
          this.age = age;
          this.position = position;
          this.messenger = messenger;
          this.phoneNumber = phoneNumber;
+         this.skills = skills;
+         this.areaOfResponsibility = areaOfResponsibility;
+         this.visibility = visibility;
      }
 
-     public void setName(String name) {
+    public User() {
+
+    }
+
+    public void setName(String name) {
          if(name.length() < 100) {
              this.name = name;
          } else {
@@ -106,6 +126,22 @@ public class User {
         }
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setVisibility(boolean visibility) {
         this.visibility = visibility;
     }
@@ -130,7 +166,7 @@ public class User {
         return messenger;
     }
 
-    public int getPhone_number() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -138,7 +174,7 @@ public class User {
         return skills;
     }
 
-    public String getArea_of_responsibility() {
+    public String getAreaOfResponsibility() {
         return areaOfResponsibility;
     }
 
@@ -149,11 +185,6 @@ public class User {
     public boolean isVisibility() {
         return visibility;
     }
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", nullable = false)
-  private Long id;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinTable(name = "team_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
