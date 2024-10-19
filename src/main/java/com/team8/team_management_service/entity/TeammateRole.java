@@ -37,16 +37,6 @@ public class TeammateRole {
     @OneToMany(mappedBy = "role")
     private List<Teammate> teammates = new ArrayList<>();
 
-    public void addTeammate(Teammate teammate) {
-        teammates.add(teammate);
-        teammate.setRole(this);
-    }
-
-    public void removeTeammate(Teammate teammate) {
-        teammates.remove(teammate);
-        teammate.setRole(null);
-    }
-
     public Long getId() {
         return id;
     }
