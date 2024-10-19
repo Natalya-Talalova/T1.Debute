@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -69,18 +69,8 @@ public class User {
     @NotNull
     boolean visibility;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<Teammate> teammates = new ArrayList<>();
-
-    public void addTeammate(Teammate teammate) {
-        teammates.add(teammate);
-        teammate.setUser(this);
-    }
-
-    public void removeTeammate(Teammate teammate) {
-        teammates.remove(teammate);
-        teammate.setUser(null);
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Teammate> teammates = new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;

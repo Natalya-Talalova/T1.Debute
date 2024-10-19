@@ -1,24 +1,34 @@
 package com.team8.team_management_service.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "teammates")
+@Table(name = "teammate", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "team_id"})
+})
 public class Teammate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @Size(message = "Teammate name must be between 1 and 255 characters", min = 1, max = 255)
+    @NotBlank
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", nullable = false)
     private TeammateRole role;
 

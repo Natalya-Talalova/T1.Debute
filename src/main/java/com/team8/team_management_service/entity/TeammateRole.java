@@ -1,14 +1,16 @@
 package com.team8.team_management_service.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+//TODO : Нельзя удалять используемые роли - написать в сервисе.
 @Entity
 @Table(name = "teammate_roles")
 public class TeammateRole {
@@ -18,22 +20,22 @@ public class TeammateRole {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", length = 256, nullable = false)
-    @Size(min = 2, max = 256, message = "Name must be between 2 and 256 characters")
+    @Size(message = "Teammate role name must be between 1 and 255 characters", min = 1, max = 255)
+    @NotBlank
+    @Column(name = "name", nullable = false)
     private String name;
 
-    //TODO: rewrite this
     @ElementCollection(targetClass = TeammatePermission.class)
     @CollectionTable(
-            name = "teammate_role_permissions",
+            name = "teammate_role_permission",
             joinColumns = @JoinColumn(name = "teammate_role_id")
     )
     @Enumerated(EnumType.STRING)
-    @Column(name = "permission")
+    @Column(name = "permission", nullable = false)
     private Set<TeammatePermission> permissions;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<Teammate> teammates = new ArrayList<>();
+    @OneToMany(mappedBy = "role")
+    private List<Teammate> teammates = new ArrayList<>();
 
     public void addTeammate(Teammate teammate) {
         teammates.add(teammate);
