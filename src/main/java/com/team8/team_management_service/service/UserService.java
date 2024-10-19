@@ -1,10 +1,8 @@
-package com.team8.team_management_service.services;
+package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.UserDto;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public interface UserService{
 

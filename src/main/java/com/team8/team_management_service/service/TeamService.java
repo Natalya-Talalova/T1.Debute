@@ -1,4 +1,4 @@
-package com.team8.team_management_service.services;
+package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeamDto;
 
@@ -12,8 +12,11 @@ public interface TeamService {
 
     void delete(Long id);
 
+    void deleteByTeamName(String teamName);
+
     TeamDto findById(Long id);
 
-    List<TeamDto> findAll();
+    TeamDto findByTeamName(String teamName);
 
+    List<TeamDto> findAll();
 }

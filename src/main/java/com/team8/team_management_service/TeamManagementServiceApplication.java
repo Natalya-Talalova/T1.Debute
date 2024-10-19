@@ -8,6 +8,7 @@ public class TeamManagementServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TeamManagementServiceApplication.class, args);
+		System.out.println("Swagger UI: http://localhost:8080/swagger-ui.html");
 	}
 
 }

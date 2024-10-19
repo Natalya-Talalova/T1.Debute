@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "teammate", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"user_id", "team_id"})
@@ -28,9 +30,14 @@ public class Teammate {
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "role_id", nullable = false)
-    private TeammateRole role;
+    @ElementCollection(targetClass = TeammateRole.class)
+    @CollectionTable(
+            name = "teammate_role",
+            joinColumns = @JoinColumn(name = "teammate_id")
+    )
+    @Enumerated(EnumType.STRING)
+    @Column(name = "teammate_role", nullable = false)
+    private Set<TeammateRole> roles;
 
     public User getUser() {
         return user;
@@ -48,11 +55,5 @@ public class Teammate {
         this.team = team;
     }
 
-    public TeammateRole getRole() {
-        return role;
-    }
 
-    public void setRole(TeammateRole role) {
-        this.role = role;
-    }
 }
