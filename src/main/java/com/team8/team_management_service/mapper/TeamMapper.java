@@ -25,7 +25,6 @@ public interface TeamMapper extends BaseMapper<TeamDto, Team> {
 
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Team partialUpdate(
-            TeamDto teamDto, @MappingTarget Team team);
+    Team partialUpdate(TeamDto teamDto, @MappingTarget Team team);
 
 }
