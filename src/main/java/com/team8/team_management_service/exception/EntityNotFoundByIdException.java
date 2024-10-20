@@ -1,6 +1,5 @@
 package com.team8.team_management_service.exception;
 
-
 import jakarta.persistence.EntityNotFoundException;
 
 public class EntityNotFoundByIdException extends EntityNotFoundException {

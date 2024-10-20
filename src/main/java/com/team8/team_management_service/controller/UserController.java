@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -40,4 +41,25 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    // Обновление пользователя по ID
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable Long id) {
+        UserDto updatedUser = userService.update(userDto, id);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    // Поиск пользователя по юзернейму
+    @GetMapping("/username/{username}")
+    public ResponseEntity<List<UserDto>> getUsersByUsername(@PathVariable String username) {
+        List<UserDto> users = userService.findByUsername(username);
+        return ResponseEntity.ok(users);
+    }
+
+    @PatchMapping("/user/{id}")
+    public ResponseEntity<UserDto> partialUpdateUser(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        UserDto user = userService.partialUpdate(id, fields);
+        return ResponseEntity.ok(user);
+    }
+
 }

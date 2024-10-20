@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
@@ -60,5 +60,55 @@ public class UserServiceImpl implements UserService {
                 .map(userMapper::toDto)
                 .toList();
     }
+
+    @Override
+    public List<UserDto> findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .stream()
+                .map(userMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public UserDto partialUpdate(Long id, Map<String, Object> fields) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new CustomEntityNotFoundException(User.class, id));
+
+        fields.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    user.setName((String) value);
+                    break;
+                case "lastname":
+                    user.setLastname((String) value);
+                    break;
+                case "position":
+                    user.setPosition((String) value);
+                    break;
+                case "experience":
+                    user.setExperience((String) value);
+                    break;
+                case "messenger":
+                    user.setMessenger((String) value);
+                    break;
+                case "phone_number":
+                    user.setPhoneNumber((Integer) value);
+                    break;
+                case "username":
+                    user.setUsername((String) value);
+                    break;
+                case "password":
+                    user.setPassword((String) value);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        User updatedUser = userRepository.save(user);
+        return userMapper.toDto(updatedUser);
+    }
+
 
 }
