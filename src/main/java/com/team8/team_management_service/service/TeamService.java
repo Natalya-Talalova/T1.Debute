@@ -9,11 +9,17 @@ public interface TeamService {
 
     TeamDto create(TeamDto teamDto);
 
+    TeamDto partialUpdate(TeamDto teamDto, Long id);
+
     TeamDto update(TeamDto teamDto, Long id);
 
     void delete(Long id);
 
+    void deleteByTeamName(String teamName);
+
     TeamDto findById(Long id);
+
+    TeamDto findByTeamName(String teamName);
 
     List<TeamDto> findAll();
 

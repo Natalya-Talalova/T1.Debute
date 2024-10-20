@@ -56,7 +56,6 @@ public class User {
     @Size(min = 2, max = 2048, message = "Skills must be between 2 and 2048 characters")
     String skills;
 
-
     @Column(name = "area_of_responsibility", nullable = false, length = 512)
     @Size(min = 2, max = 512, message = "Area of responsibility must be between 2 and 512 characters")
     String areaOfResponsibility;

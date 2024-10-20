@@ -1,8 +1,8 @@
 package com.team8.team_management_service.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "teammate", uniqueConstraints = {
@@ -15,11 +15,6 @@ public class Teammate {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Size(message = "Teammate name must be between 1 and 255 characters", min = 1, max = 255)
-    @NotBlank
-    @Column(name = "name", nullable = false)
-    private String name;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -28,9 +23,18 @@ public class Teammate {
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "role_id", nullable = false)
-    private TeammateRole role;
+    @ElementCollection(targetClass = TeammateRole.class)
+    @CollectionTable(
+            name = "teammate_role",
+            joinColumns = @JoinColumn(name = "teammate_id")
+    )
+    @Enumerated(EnumType.STRING)
+    @Column(name = "teammate_role", nullable = false)
+    private Set<TeammateRole> roles;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;
@@ -48,11 +52,5 @@ public class Teammate {
         this.team = team;
     }
 
-    public TeammateRole getRole() {
-        return role;
-    }
 
-    public void setRole(TeammateRole role) {
-        this.role = role;
-    }
 }

@@ -10,4 +10,6 @@ public interface BaseMapper<D, E> {
     List<D> toDtoList(List<E> entities);
 
     List<E> toEntityList(List<D> dtos);
+
+    E partialUpdate(D dto, E entity);
 }

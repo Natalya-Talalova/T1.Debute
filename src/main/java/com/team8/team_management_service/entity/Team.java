@@ -20,7 +20,7 @@ public class Team {
 
     @NotBlank
     @Size(message = "Team name must be between 1 and 255 characters", min = 1, max = 255)
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "description", length = 256, nullable = false)
