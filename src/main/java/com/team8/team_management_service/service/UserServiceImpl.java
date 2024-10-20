@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
     public UserDto create(UserDto userDto) {
         User entity = userMapper.toEntity(userDto);
         entity = userRepository.save(entity);
+        System.out.println(entity.getId());
         return userMapper.toDto(entity);
     }
 
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDto partialUpdate(Long id, Map<String, Object> fields) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new CustomEntityNotFoundException(User.class, id));
+                .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
 
         fields.forEach((key, value) -> {
             switch (key) {
@@ -93,7 +94,7 @@ public class UserServiceImpl implements UserService {
                     user.setMessenger((String) value);
                     break;
                 case "phone_number":
-                    user.setPhoneNumber((Integer) value);
+                    user.setPhoneNumber((String) value);
                     break;
                 case "username":
                     user.setUsername((String) value);

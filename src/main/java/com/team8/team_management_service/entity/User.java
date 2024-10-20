@@ -13,12 +13,19 @@ import java.util.Objects;
 @Table(name = "users")
 public class User {
 
-    //TODO Profile picture, opportunity to be added to the team
+    //TODO Profile picture
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "phone_number", nullable = false, length = 11)
+    @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
+    String phoneNumber;
+
+    @Column(name = "age", nullable = false)
+    int age;
 
     @Column(name = "username", nullable = false, unique = true)
     @Size(min = 2, max = 256, message = "Username must be between 2 and 256 characters")
@@ -48,9 +55,9 @@ public class User {
     @Size(min = 2, max = 256, message = "Messenger must be between 2 and 256 characters")
     String messenger;
 
-    @Column(name = "phone_number", nullable = false, length = 11)
-    @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
-    int phoneNumber;
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "skills", nullable = false, length = 2048)
     @Size(min = 2, max = 2048, message = "Skills must be between 2 and 2048 characters")
@@ -60,16 +67,16 @@ public class User {
     @Size(min = 2, max = 512, message = "Area of responsibility must be between 2 and 512 characters")
     String areaOfResponsibility;
 
-    @Column(name = "age", nullable = false, length = 3)
-    @Size(min = 1, max = 3, message = "Age must be between 1 and 3 characters")
-    int age;
-
     @Column(name = "visibility", nullable = false)
     @NotNull
     boolean visibility;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -91,8 +98,8 @@ public class User {
         this.messenger = messenger;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void setSkills(String skills) {
@@ -147,8 +154,8 @@ public class User {
         return messenger;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getSkills() {

@@ -35,21 +35,21 @@ public class UserDto implements Serializable {
     private final String messenger;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
-    private final int phoneNumber;
+    private final String phoneNumber;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final String skills;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final String areaOfResponsibility;
-    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
-    @NotBlank
+    //    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
+//    @NotBlank
     private final int age;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final boolean visibility;
 
-    public UserDto(Long id, String username, String password, String name, String lastname, String position, String experience, String messenger, int phoneNumber, String skills, String areaOfResponsibility, int age, boolean visibility) {
+    public UserDto(Long id, String username, String password, String name, String lastname, String position, String experience, String messenger, String phoneNumber, String skills, String areaOfResponsibility, int age, boolean visibility) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -97,7 +97,7 @@ public class UserDto implements Serializable {
         return messenger;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 

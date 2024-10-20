@@ -1,4 +1,4 @@
-package com.team8.team_management_service.services;
+package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeamDto;
 
@@ -22,10 +22,6 @@ public interface TeamService {
     TeamDto findByTeamName(String teamName);
 
     List<TeamDto> findAll();
-
-    List<TeamDto> findByName(String name);
-
-    TeamDto deleteByName(String name);
 
     TeamDto partialUpdate(Long id, Map<String, Object> fields);
 

@@ -1,24 +1,18 @@
-package com.team8.team_management_service.services;
+package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeamDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.exception.EntityNotFoundByNameException;
 import com.team8.team_management_service.exception.TeamNameConflictException;
-import com.team8.team_management_service.exception.CustomEntityNotFoundException;
-import com.team8.team_management_service.exception.NameEntityNotFoundException;
 import com.team8.team_management_service.mapper.TeamMapper;
 import com.team8.team_management_service.repository.TeamRepository;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import javax.lang.model.element.Name;
+import java.util.Map;
 
 @Transactional
 @Service
@@ -101,30 +95,10 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<TeamDto> findByName(String name) {
-        return teamRepository.findByName(name)
-                .stream()
-                .map(teamMapper::toDto)
-                .toList();
-    }
-
-    @Override
-    public TeamDto deleteByName(String name) {
-        List<Team> teams = teamRepository.findByName(name);
-        Team team = teams.stream()
-                .findFirst()
-                .orElseThrow(() -> new NameEntityNotFoundException(Team.class, name));
-
-        Long id = team.getId();
-        teamRepository.delete(team);
-        return teamMapper.toDto(team);
-    }
-
-    @Override
     @Transactional
     public TeamDto partialUpdate(Long id, Map<String, Object> fields) {
         Team team = teamRepository.findById(id)
-                .orElseThrow(() -> new CustomEntityNotFoundException(Team.class, id));
+                .orElseThrow(() -> new EntityNotFoundByIdException(Team.class, id));
 
         fields.forEach((key, value) -> {
             switch (key) {
