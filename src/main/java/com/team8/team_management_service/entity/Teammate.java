@@ -39,6 +39,10 @@ public class Teammate {
     @Column(name = "teammate_role", nullable = false)
     private Set<TeammateRole> roles;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public User getUser() {
         return user;
     }
