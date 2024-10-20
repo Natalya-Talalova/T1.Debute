@@ -1,8 +1,6 @@
 package com.team8.team_management_service.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -16,11 +14,6 @@ public class Teammate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @Size(message = "Teammate name must be between 1 and 255 characters", min = 1, max = 255)
-    @NotBlank
-    @Column(name = "name", nullable = false)
-    private String name;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)

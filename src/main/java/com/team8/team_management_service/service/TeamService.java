@@ -8,6 +8,8 @@ public interface TeamService {
 
     TeamDto create(TeamDto teamDto);
 
+    TeamDto partialUpdate(TeamDto teamDto, Long id);
+
     TeamDto update(TeamDto teamDto, Long id);
 
     void delete(Long id);

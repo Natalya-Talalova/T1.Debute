@@ -1,28 +1,28 @@
 package com.team8.team_management_service.service;
 
-import com.team8.team_management_service.dto.TeamDto;
 import com.team8.team_management_service.dto.TeammateDto;
-import com.team8.team_management_service.dto.UserDto;
+import com.team8.team_management_service.entity.TeammateRole;
 
 import java.util.List;
 
 public interface TeammateService {
 
-    TeammateDto create(TeammateDto teammateDto);
-    List<TeammateDto> findAllByTeamId(Long teamId);
+    // Получение участника по идентификатору участника
+    TeammateDto findById(Long teammateId);
 
-    TeammateDto update(TeammateDto teammate, Long id);
-    TeammateDto findById(Long teamId, Long teammateId);
+    // Получение всех участников команды
+    List<TeammateDto> findAll(Long teamId);
 
-    void delete(Long id);
-    TeammateDto addTeammate(Long teamId, TeammateDto teammateDto);
+    // Создание участника в команде
+    TeammateDto create(Long teamId, Long userId, TeammateRole role);
 
-    TeammateDto findById(Long id);
+    // Обновление участника команды
+    // Полное обновление участника команды
+    TeammateDto update(Long teammateId, TeammateDto teammateDto);
 
-    List<TeammateDto> findAll();
-    TeammateDto updateTeammate(Long teamId, Long teammateId, TeammateDto teammateDto);
+    // Частичное обновление участника команды
+    TeammateDto partialUpdate(Long teammateId, TeammateDto teammateDto);
 
-    TeammateDto partialUpdateTeammate(Long teamId, Long teammateId, TeammateDto teammateDto);
-
-    void deleteTeammate(Long teamId, Long teammateId);
+    // Удаление участника команды
+    void delete(Long teammateId);
 }

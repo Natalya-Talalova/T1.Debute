@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/teams")
@@ -31,46 +30,36 @@ public class TeamController {
 
     @Operation(summary = "Изменить команду")
     @PutMapping("/{id}")
-    public ResponseEntity<TeamDto> update(@RequestBody TeamDto teamDto, @PathVariable Long id) {
-        TeamDto updatedTeam = teamService.update(teamDto, id);
-        return new ResponseEntity<>(updatedTeam, HttpStatus.OK);
+    public TeamDto update(@RequestBody TeamDto teamDto, @PathVariable Long id) {
+        return teamService.update(teamDto, id);
+    }
+
+    @Operation(summary = "Изменить частично команду")
+    @PatchMapping("/{id}")
+    public TeamDto partialUpdate(@RequestBody TeamDto teamDto, @PathVariable Long id) {
+        return teamService.partialUpdate(teamDto, id);
     }
 
     @Operation(summary = "Удалить команду по id")
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
         teamService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Найти команду по id")
     @GetMapping("/{id}")
-    public ResponseEntity<TeamDto> findById(@PathVariable Long id) {
-        Optional<TeamDto> team = Optional.ofNullable(teamService.findById(id));
-        return team.map(ResponseEntity::ok)
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @Operation(summary = "Найти команду по названию")
-    @GetMapping("/{teamName}")
-    public ResponseEntity<TeamDto> findByTeamName(@PathVariable String teamName) {
-        Optional<TeamDto> team = Optional.ofNullable(teamService.findByTeamName(teamName));
-        return team.map(ResponseEntity::ok)
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @Operation(summary = "Удалить команду по названию")
-    @DeleteMapping("/{teamName}")
-    public ResponseEntity<HttpStatus> deleteByTeamName(@PathVariable String teamName) {
-        teamService.deleteByTeamName(teamName);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public TeamDto findById(@PathVariable Long id) {
+        return teamService.findById(id);
     }
 
     @Operation(summary = "Получить все команды")
     @GetMapping
-    public ResponseEntity<List<TeamDto>> findAll() {
-        List<TeamDto> teams = teamService.findAll();
-        return new ResponseEntity<>(teams, HttpStatus.OK);
+    public List<TeamDto> findAll() {
+        return teamService.findAll();
     }
 
+//    //TODO: Реализовать эндпоинты
+//    @Operation(summary = "Найти команду по названию")
+//    @Operation(summary = "Удалить команду по названию")
 }

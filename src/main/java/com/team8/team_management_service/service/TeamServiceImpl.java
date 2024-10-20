@@ -37,13 +37,19 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public TeamDto partialUpdate(TeamDto teamDto, Long id) {
+        Team team = teamRepository.findById(id).orElseThrow(() -> new EntityNotFoundByIdException(Team.class, id));
+        teamMapper.partialUpdate(teamDto, team);
+        Team updatedTeam = teamRepository.save(team);
+        return teamMapper.toDto(updatedTeam);
+    }
+
+    @Override
     public TeamDto update(TeamDto teamDto, Long id) {
         Team team = teamRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByIdException(Team.class, id));
-
         team.setName(teamDto.getName());
         team.setDescription(teamDto.getDescription());
-
         Team updatedTeam = teamRepository.save(team);
         return teamMapper.toDto(updatedTeam);
     }
@@ -69,6 +75,7 @@ public class TeamServiceImpl implements TeamService {
         Team team = teamRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByIdException(Team.class, id));
         return teamMapper.toDto(team);
+//        return team.map(teamMapper::toDto);
     }
 
     @Override

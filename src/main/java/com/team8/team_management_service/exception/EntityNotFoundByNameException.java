@@ -8,7 +8,7 @@ public class EntityNotFoundByNameException extends EntityNotFoundException {
     private final String name;
 
     public EntityNotFoundByNameException(Class<?> tClass, String name) {
-        super("Could not find " + tClass.getSimpleName() + " with name " + name);
+        super("Could not find " + tClass.getSimpleName() + " with name \"" + name + "\"");
         this.entityClass = tClass;
         this.name = name;
     }
