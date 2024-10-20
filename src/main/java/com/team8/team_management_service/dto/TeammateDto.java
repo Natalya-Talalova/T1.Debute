@@ -17,13 +17,10 @@ public class TeammateDto implements Serializable {
     @Size(message = "Teammate name must be between 1 and 255 characters", min = 1, max = 255)
     @NotBlank
     private final String name;
-    @NotNull
-    private final Set<TeammateRole> roles;
 
     public TeammateDto(Long id, String name, Set<TeammateRole> roles) {
         this.id = id;
         this.name = name;
-        this.roles = roles;
     }
 
     public Long getId() {
@@ -34,13 +31,9 @@ public class TeammateDto implements Serializable {
         return name;
     }
 
-    public Set<TeammateRole> getRoles() {
-        return roles;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, roles);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -49,15 +42,13 @@ public class TeammateDto implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         TeammateDto entity = (TeammateDto) o;
         return Objects.equals(this.id, entity.id) &&
-                Objects.equals(this.name, entity.name) &&
-                Objects.equals(this.roles, entity.roles);
+                Objects.equals(this.name, entity.name);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
-                "name = " + name + ", " +
-                "roles = " + roles + ")";
+                "name = " + name + ")";
     }
 }

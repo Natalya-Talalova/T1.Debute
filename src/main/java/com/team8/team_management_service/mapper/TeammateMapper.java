@@ -3,6 +3,9 @@ package com.team8.team_management_service.mapper;
 import com.team8.team_management_service.dto.TeammateDto;
 import com.team8.team_management_service.entity.Teammate;
 import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
