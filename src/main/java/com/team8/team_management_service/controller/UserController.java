@@ -1,10 +1,14 @@
 package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.UserDto;
+import com.team8.team_management_service.entity.User;
 import com.team8.team_management_service.service.UserService;
+import com.team8.team_management_service.repository.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -14,9 +18,11 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -41,10 +47,10 @@ public class UserController {
         return userService.update(userDto, id);
     }
 
-//    @PatchMapping("/{id}")
-//    public UserDto partialUpdateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
-//        return userService.partialUpdate(id, userDto);
-//    }
+    @PatchMapping("/{id}")
+    public UserDto partialUpdateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+        return userService.partialUpdate(id, userDto);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
@@ -53,16 +59,24 @@ public class UserController {
     }
 
     // Поиск пользователя по юзернейму
-    @GetMapping("/username/{username}")
+    @GetMapping("?username={username}")
     public ResponseEntity<List<UserDto>> getUsersByUsername(@PathVariable String username) {
         List<UserDto> users = userService.findByUsername(username);
         return ResponseEntity.ok(users);
     }
 
     @PatchMapping("/user/{id}")
-    public ResponseEntity<UserDto> partialUpdateUser(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
-        UserDto user = userService.partialUpdate(id, fields);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<String> updateProfilePicture(@PathVariable Long id, @RequestParam("profilePicture")MultipartFile file) {
+        userService.updateProfilePicture(id, file);
+        return ResponseEntity.ok("Profile picture updated successfully");
     }
 
+    @GetMapping("/{id}/profile-picture")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        byte[] profilePicture = user.getProfilePicture();
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(profilePicture);
+    }
 }
