@@ -94,4 +94,10 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Failed to save profile picture", e);
         }
     }
+
+    @Override
+    public List<UserDto> searchUsers(String query) {
+        List<User> users = userRepository.searchUsers(query);
+        return userMapper.toDtoList(users);
+    }
 }

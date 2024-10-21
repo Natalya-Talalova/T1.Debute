@@ -79,4 +79,11 @@ public class UserController {
         byte[] profilePicture = user.getProfilePicture();
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(profilePicture);
     }
+
+    @GetMapping("?search={query}")
+    public ResponseEntity<List<UserDto>> searchUsers(@RequestParam("query") String query) {
+        List<UserDto> users = userService.searchUsers(query);
+        return ResponseEntity.ok(users);
+    }
+
 }

@@ -24,5 +24,5 @@ public interface UserService{
 
     void updateProfilePicture(Long id, MultipartFile file);
 
-
+    List<UserDto> searchUsers(String query);
 }
