@@ -9,18 +9,8 @@ services:
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: postgres_db
       PGDATA: /var/lib/postgresql/data/pgdata
-    ports:   
+    ports:
       - "5430:5432"
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'                                
-          memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 256M
     command: >
       postgres -c max_connections=1000
                -c shared_buffers=256MB
@@ -38,17 +28,20 @@ services:
     tty: true
     stdin_open: true
 
-#  team-management-service:
-#    image: team-management-service
-#    container_name: team-management-service_container
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - postgres
-#    restart: unless-stopped
-#    tty: true
-#    stdin_open: true
-
-volumes:
-  pgdata:
-    driver: local
+  app:
+    image: team-management-service:latest # Это имя должно соответствовать имени созданного образа
+    build:
+      context: . # Указывает на текущую директорию, где находятся Dockerfile и проект
+      dockerfile: Dockerfile
+    container_name: app_container
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/postgres_db
+      SPRING_DATASOURCE_USERNAME: postgres_user
+      SPRING_DATASOURCE_PASSWORD: postgres_password
+    ports:
+      - "5000:8080" # Экспонируем внутренний порт 8080 на внешний порт 5000
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
