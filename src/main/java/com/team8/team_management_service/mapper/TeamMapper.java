@@ -2,11 +2,9 @@ package com.team8.team_management_service.mapper;
 
 import com.team8.team_management_service.dto.TeamDto;
 import com.team8.team_management_service.entity.Team;
+import org.mapstruct.*;
 
 import java.util.List;
-
-import org.mapstruct.*;
-import org.mapstruct.MappingConstants.ComponentModel;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TeamMapper extends BaseMapper<TeamDto, Team> {
@@ -22,7 +20,6 @@ public interface TeamMapper extends BaseMapper<TeamDto, Team> {
 
     @Override
     List<Team> toEntityList(List<TeamDto> dtos);
-
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Team partialUpdate(TeamDto teamDto, @MappingTarget Team team);

@@ -3,7 +3,6 @@ package com.team8.team_management_service.service;
 import com.team8.team_management_service.dto.UserDto;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UserService{
 
@@ -19,5 +18,5 @@ public interface UserService{
 
     List<UserDto> findByUsername(String username);
 
-    UserDto partialUpdate(Long id, Map<String, Object> fields);
+    UserDto partialUpdate(Long id, UserDto userDto);
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Transactional
 @Service
@@ -72,42 +71,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto partialUpdate(Long id, Map<String, Object> fields) {
+    public UserDto partialUpdate(Long id, UserDto userDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
-
-        fields.forEach((key, value) -> {
-            switch (key) {
-                case "name":
-                    user.setName((String) value);
-                    break;
-                case "lastname":
-                    user.setLastname((String) value);
-                    break;
-                case "position":
-                    user.setPosition((String) value);
-                    break;
-                case "experience":
-                    user.setExperience((String) value);
-                    break;
-                case "messenger":
-                    user.setMessenger((String) value);
-                    break;
-                case "phone_number":
-                    user.setPhoneNumber((String) value);
-                    break;
-                case "username":
-                    user.setUsername((String) value);
-                    break;
-                case "password":
-                    user.setPassword((String) value);
-                    break;
-                default:
-                    break;
-            }
-        });
-
-        User updatedUser = userRepository.save(user);
+        User updatedUser = userMapper.partialUpdate(userDto, user);
+        updatedUser = userRepository.save(updatedUser);
         return userMapper.toDto(updatedUser);
     }
 
