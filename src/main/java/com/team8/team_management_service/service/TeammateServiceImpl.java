@@ -65,12 +65,12 @@ public class TeammateServiceImpl implements TeammateService {
     }
 
     @Override
-    public TeammateDto update(Long teammateId, TeammateDto teammateDto) {
+    public TeammateDto update(TeammateDto teammateDto, Long teammateId) {
         return null;
     }
 
     @Override
-    public TeammateDto partialUpdate(Long teammateId, TeammateDto teammateDto) {
+    public TeammateDto partialUpdate(TeammateDto teammateDto, Long teammateId) {
         return null;
     }
 

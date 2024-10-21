@@ -18,10 +18,10 @@ public interface TeammateService {
 
     // Обновление участника команды
     // Полное обновление участника команды
-    TeammateDto update(Long teammateId, TeammateDto teammateDto);
+    TeammateDto update(TeammateDto teammateDto, Long teammateId);
 
     // Частичное обновление участника команды
-    TeammateDto partialUpdate(Long teammateId, TeammateDto teammateDto);
+    TeammateDto partialUpdate(TeammateDto teammateDto, Long teammateId);
 
     // Удаление участника команды
     void delete(Long teammateId);
