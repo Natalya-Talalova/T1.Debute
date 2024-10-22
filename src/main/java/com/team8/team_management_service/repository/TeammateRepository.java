@@ -11,4 +11,6 @@ import java.util.List;
 public interface TeammateRepository extends JpaRepository<Teammate, Long> {
 
     List<Teammate> findByTeamId(Long teamId);
+
+    List<Teammate> findByUserId(Long userId);
 }

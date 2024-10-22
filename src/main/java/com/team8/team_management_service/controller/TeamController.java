@@ -21,6 +21,18 @@ public class TeamController {
         this.teamService = teamService;
     }
 
+    @Operation(summary = "Получить все команды")
+    @GetMapping
+    public List<TeamDto> findAll() {
+        return teamService.findAll();
+    }
+
+    @Operation(summary = "Найти команду по id")
+    @GetMapping("/{id}")
+    public TeamDto findById(@PathVariable Long id) {
+        return teamService.findById(id);
+    }
+
     @Operation(summary = "Создать команду")
     @PostMapping
     public ResponseEntity<TeamDto> create(@RequestBody TeamDto teamDto) {
@@ -47,19 +59,16 @@ public class TeamController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Найти команду по id")
-    @GetMapping("/{id}")
-    public TeamDto findById(@PathVariable Long id) {
-        return teamService.findById(id);
+    @Operation(summary = "Получить команду по названию")
+    @GetMapping("/search")
+    public TeamDto findByTeamName(@RequestParam(name = "name") String teamName) {
+        return teamService.findByTeamName(teamName);
     }
 
-    @Operation(summary = "Получить все команды")
-    @GetMapping
-    public List<TeamDto> findAll() {
-        return teamService.findAll();
+    @Operation(summary = "Удалить команду по названию")
+    @DeleteMapping("/search")
+    public ResponseEntity<HttpStatus> deleteByTeamName(@RequestParam(name = "n  ame") String teamName) {
+        teamService.deleteByTeamName(teamName);
+        return ResponseEntity.noContent().build();
     }
-
-//    //TODO: Реализовать эндпоинты
-//    @Operation(summary = "Найти команду по названию")
-//    @Operation(summary = "Удалить команду по названию")
 }
