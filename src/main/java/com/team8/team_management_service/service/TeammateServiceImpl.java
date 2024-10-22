@@ -7,65 +7,40 @@ import com.team8.team_management_service.entity.TeammateRole;
 import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.mapper.TeammateMapper;
 import com.team8.team_management_service.repository.TeammateRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class TeammateServiceImpl implements TeammateService {
 
     private final TeammateMapper teammateMapper;
     private final TeammateRepository teammateRepository;
 
-    public TeammateServiceImpl(TeammateMapper teammateMapper, TeammateRepository teammateRepository) {
-        this.teammateMapper = teammateMapper;
-        this.teammateRepository = teammateRepository;
-    }
-
-    @Override
-    public TeammateDto create(TeammateDto teammateDto) {
-        return null;
-    }
-
-    @Override
-    public List<TeammateDto> findAllByTeamId(Long teamId) {
-        return teammateMapper.toDtoList(teammateRepository.findByTeamId(teamId));
-    }
-
-    @Override
-    public TeammateDto update(TeammateDto teammate, Long id) {
-        return null;
-    }
-
-    @Override
-    public TeammateDto findById(Long teamId, Long teammateId) {
-        Teammate teammate = teammateRepository.findById(teammateId)
-                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
-        return teammateMapper.toDto(teammate);
-    }
-
     @Override
     public TeammateDto findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public TeammateDto addTeammate(Long teamId, TeammateDto teammateDto) {
-        Teammate teammate = teammateMapper.toEntity(teammateDto);
-        teammate.getTeam().setId(teamId); // Устанавливаем ID команды
-        teammate = teammateRepository.save(teammate);
-        return teammateMapper.toDto(teammate);
+        return  teammateRepository.findById(id)
+                .map(teammateMapper::toDto)
+                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, id));
     }
 
     @Override
     public List<TeammateDto> findAll(Long teamId) {
-        return List.of();
+        return teammateRepository.findAll()
+                .stream()
+                .map(teammateMapper::toDto)
+                .toList();
     }
 
     @Override
     public TeammateDto create(Long teamId, Long userId, TeammateRole role) {
-        return null;
+        Teammate entity = teammateMapper.toEntity(userId, teamId, role);
+        entity = teammateRepository.save(entity);
+        System.out.println(entity.getId());
+        return teammateMapper.toDto(entity);
     }
 
     @Override
@@ -80,7 +55,6 @@ public class TeammateServiceImpl implements TeammateService {
 
     @Override
     public void delete(Long id) {
-
     }
 
     public List<Team> findTeamsByUserId(Long userId) {

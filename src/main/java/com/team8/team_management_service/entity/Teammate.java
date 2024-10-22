@@ -52,6 +52,10 @@ public class Teammate {
         this.team = team;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Set<TeammateRole> getRoles() {
         return roles;
     }
