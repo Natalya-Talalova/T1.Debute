@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -42,14 +43,13 @@ public class UserDto implements Serializable {
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final String areaOfResponsibility;
-    //    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
-//    @NotBlank
     private final int age;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final boolean visibility;
+    private final byte[] profilePicture;
 
-    public UserDto(Long id, String username, String password, String name, String lastname, String position, String experience, String messenger, String phoneNumber, String skills, String areaOfResponsibility, int age, boolean visibility) {
+    public UserDto(Long id, String username, String password, String name, String lastname, String position, String experience, String messenger, String phoneNumber, String skills, String areaOfResponsibility, int age, boolean visibility, byte[] profilePicture) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -63,6 +63,7 @@ public class UserDto implements Serializable {
         this.areaOfResponsibility = areaOfResponsibility;
         this.age = age;
         this.visibility = visibility;
+        this.profilePicture = profilePicture;
     }
 
     public Long getId() {
@@ -117,6 +118,10 @@ public class UserDto implements Serializable {
         return visibility;
     }
 
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,12 +139,13 @@ public class UserDto implements Serializable {
                 Objects.equals(this.skills, entity.skills) &&
                 Objects.equals(this.areaOfResponsibility, entity.areaOfResponsibility) &&
                 Objects.equals(this.age, entity.age) &&
-                Objects.equals(this.visibility, entity.visibility);
+                Objects.equals(this.visibility, entity.visibility) &&
+                Objects.equals(this.profilePicture, entity.profilePicture);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, name, lastname, position, experience, messenger, phoneNumber, skills, areaOfResponsibility, age, visibility);
+        return Objects.hash(id, username, password, name, lastname, position, experience, messenger, phoneNumber, skills, areaOfResponsibility, age, visibility, profilePicture);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.UserDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -19,5 +20,9 @@ public interface UserService{
 
     List<UserDto> findByUsername(String username);
 
-    UserDto partialUpdate(Long id, Map<String, Object> fields);
+    UserDto partialUpdate(Long id, UserDto userDto);
+
+    void updateProfilePicture(Long id, MultipartFile file);
+
+    List<UserDto> searchUsers(String query);
 }

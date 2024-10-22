@@ -7,7 +7,9 @@ import com.team8.team_management_service.mapper.UserMapper;
 import com.team8.team_management_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -72,44 +74,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto partialUpdate(Long id, Map<String, Object> fields) {
+    public UserDto partialUpdate(Long id, UserDto userDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
-
-        fields.forEach((key, value) -> {
-            switch (key) {
-                case "name":
-                    user.setName((String) value);
-                    break;
-                case "lastname":
-                    user.setLastname((String) value);
-                    break;
-                case "position":
-                    user.setPosition((String) value);
-                    break;
-                case "experience":
-                    user.setExperience((String) value);
-                    break;
-                case "messenger":
-                    user.setMessenger((String) value);
-                    break;
-                case "phone_number":
-                    user.setPhoneNumber((String) value);
-                    break;
-                case "username":
-                    user.setUsername((String) value);
-                    break;
-                case "password":
-                    user.setPassword((String) value);
-                    break;
-                default:
-                    break;
-            }
-        });
-
-        User updatedUser = userRepository.save(user);
+        User updatedUser = userMapper.partialUpdate(userDto, user);
+        updatedUser = userRepository.save(updatedUser);
         return userMapper.toDto(updatedUser);
     }
 
+    @Override
+    public void updateProfilePicture(Long id, MultipartFile file) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
+        try {
+            user.setProfilePicture(file.getBytes());
+            userRepository.save(user);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save profile picture", e);
+        }
+    }
+
+    @Override
+    public List<UserDto> searchUsers(String query) {
+        List<User> users = userRepository.searchUsers(query);
+        return userMapper.toDtoList(users);
+    }
 }

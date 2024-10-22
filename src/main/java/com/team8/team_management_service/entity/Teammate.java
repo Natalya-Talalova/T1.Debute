@@ -52,5 +52,11 @@ public class Teammate {
         this.team = team;
     }
 
+    public Set<TeammateRole> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Set<TeammateRole> roles) {
+        this.roles = roles;
+    }
 }
