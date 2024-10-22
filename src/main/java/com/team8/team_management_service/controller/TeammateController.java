@@ -35,7 +35,7 @@ public class TeammateController {
     }
 
     @Operation(summary = "Добавить нового участника в команду")
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<TeammateDto> createTeammate(
             @PathVariable("teamId") Long teamId,
             @RequestParam("userId") Long userId,
@@ -68,29 +68,28 @@ public class TeammateController {
         return teammateService.findTeamsByUserId(userId);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<TeammateDto> addTeammate(@PathVariable("team_id") Long teamId,
-                                                   @RequestBody UserDto userDto) {
-        return new ResponseEntity<>(teammateService.addTeammate(teamId, userDto), HttpStatus.CREATED);
+                                                   @RequestBody TeammateDto teammateDto) {
+        return new ResponseEntity<>(teammateService.addTeammate(teamId, teammateDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{teammate_id}")
     public ResponseEntity<TeammateDto> updateTeammate(@PathVariable("team_id") Long teamId,
                                                       @PathVariable("teammate_id") Long teammateId,
                                                       @RequestBody TeammateDto teammateDto) {
-        return ResponseEntity.ok(teammateService.updateTeammate(teammateId, teammateDto));
+        return ResponseEntity.ok(teammateService.update(teammateDto, teammateId));
     }
 
     @PatchMapping("/{teammate_id}")
     public ResponseEntity<TeammateDto> partialUpdateTeammate(@PathVariable("team_id") Long teamId,
-                                                             @PathVariable("teammate_id") Long teammateId,
                                                              @RequestBody TeammateDto teammateDto) {
-        return ResponseEntity.ok(teammateService.partialUpdateTeammate(teamId, teammateId, teammateDto));
+        return ResponseEntity.ok(teammateService.partialUpdate(teammateDto, teamId));
     }
 
     @DeleteMapping("/{teammate_id}")
-    public ResponseEntity<Void> deleteTeammate(@PathVariable("team_id") Long teamId, @PathVariable Long teammate_id) {
-        teammateService.deleteTeammate(teamId, teammate_id);
+    public ResponseEntity<Void> deleteTeammate(@PathVariable Long teammate_id) {
+        teammateService.delete(teammate_id);
         return ResponseEntity.noContent().build();
     }
 }

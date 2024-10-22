@@ -23,8 +23,6 @@ public interface TeamService {
 
     List<TeamDto> findAll();
 
-    TeamDto partialUpdate(Long id, Map<String, Object> fields);
-
     TeamDto partialUpdate(Long id, TeamDto teamDto);
 
 

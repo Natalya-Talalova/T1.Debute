@@ -1,6 +1,7 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
@@ -23,10 +24,10 @@ public class TeammateServiceImpl implements TeammateService {
         this.teammateRepository = teammateRepository;
     }
 
-    @Override
-    public TeammateDto create(TeammateDto teammateDto) {
-        return null;
-    }
+//    @Override
+//    public TeammateDto create(TeammateDto teammateDto) {
+//        return null;
+//    }
 
     @Override
     public List<TeammateDto> findAllByTeamId(Long teamId) {
@@ -52,11 +53,21 @@ public class TeammateServiceImpl implements TeammateService {
 
     @Override
     public TeammateDto addTeammate(Long teamId, TeammateDto teammateDto) {
-        Teammate teammate = teammateMapper.toEntity(teammateDto);
-        teammate.getTeam().setId(teamId); // Устанавливаем ID команды
-        teammate = teammateRepository.save(teammate);
-        return teammateMapper.toDto(teammate);
+        return null;
     }
+
+    @Override
+    public TeammateDto addTeammate(Long teamId, UserDto teammateDto) {
+        return null;
+    }
+
+//    @Override
+//    public TeammateDto addTeammate(Long teamId, UserDto teammateDto) {
+//        Teammate teammate = teammateMapper.toEntity(teammateDto);
+//        teammate.getTeam().setId(teamId); // Устанавливаем ID команды
+//        teammate = teammateRepository.save(teammate);
+//        return teammateMapper.toDto(teammate);
+//    }
 
     @Override
     public List<TeammateDto> findAll(Long teamId) {
@@ -65,11 +76,6 @@ public class TeammateServiceImpl implements TeammateService {
 
     @Override
     public TeammateDto create(Long teamId, Long userId, TeammateRole role) {
-        return null;
-    }
-
-    @Override
-    public TeammateDto update(TeammateDto teammateDto, Long teammateId) {
         return null;
     }
 

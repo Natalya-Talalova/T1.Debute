@@ -96,24 +96,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     @Transactional
-    public TeamDto partialUpdate(Long id, Map<String, Object> fields) {
+    public TeamDto partialUpdate(Long id, TeamDto fields) {
         Team team = teamRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByIdException(Team.class, id));
-
-        fields.forEach((key, value) -> {
-            switch (key) {
-                case "name":
-                    team.setName((String) value);
-                    break;
-                case "description":
-                    team.setDescription((String) value);
-                    break;
-                default:
-                    break;
-            }
-        });
-
-        Team updatedTeam = teamRepository.save(team);
+        Team updatedTeam =teamMapper.partialUpdate(fields, team);
+        updatedTeam = teamRepository.save(team);
         return teamMapper.toDto(updatedTeam);
     }
 }

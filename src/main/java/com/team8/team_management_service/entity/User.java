@@ -70,7 +70,7 @@ public class User {
     boolean visibility;
 
     @Lob
-    @Column(name = "profile_picture", columnDefinition = "BLOB")
+    @Column(name = "profile_picture")
     byte[] profilePicture;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
