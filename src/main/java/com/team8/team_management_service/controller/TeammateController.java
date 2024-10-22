@@ -3,6 +3,7 @@ package com.team8.team_management_service.controller;
 import com.team8.team_management_service.dto.TeammateDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
+import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.service.TeammateService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -67,4 +68,29 @@ public class TeammateController {
         return teammateService.findTeamsByUserId(userId);
     }
 
+    @PostMapping
+    public ResponseEntity<TeammateDto> addTeammate(@PathVariable("team_id") Long teamId,
+                                                   @RequestBody UserDto userDto) {
+        return new ResponseEntity<>(teammateService.addTeammate(teamId, userDto), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{teammate_id}")
+    public ResponseEntity<TeammateDto> updateTeammate(@PathVariable("team_id") Long teamId,
+                                                      @PathVariable("teammate_id") Long teammateId,
+                                                      @RequestBody TeammateDto teammateDto) {
+        return ResponseEntity.ok(teammateService.updateTeammate(teammateId, teammateDto));
+    }
+
+    @PatchMapping("/{teammate_id}")
+    public ResponseEntity<TeammateDto> partialUpdateTeammate(@PathVariable("team_id") Long teamId,
+                                                             @PathVariable("teammate_id") Long teammateId,
+                                                             @RequestBody TeammateDto teammateDto) {
+        return ResponseEntity.ok(teammateService.partialUpdateTeammate(teamId, teammateId, teammateDto));
+    }
+
+    @DeleteMapping("/{teammate_id}")
+    public ResponseEntity<Void> deleteTeammate(@PathVariable("team_id") Long teamId, @PathVariable Long teammate_id) {
+        teammateService.deleteTeammate(teamId, teammate_id);
+        return ResponseEntity.noContent().build();
+    }
 }

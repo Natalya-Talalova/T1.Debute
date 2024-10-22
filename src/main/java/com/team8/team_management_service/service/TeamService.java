@@ -4,7 +4,6 @@ import com.team8.team_management_service.dto.TeamDto;
 import com.team8.team_management_service.entity.Team;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TeamService {
 
@@ -25,4 +24,9 @@ public interface TeamService {
     List<TeamDto> findAll();
 
     TeamDto partialUpdate(Long id, Map<String, Object> fields);
+
+    TeamDto partialUpdate(Long id, TeamDto teamDto);
+
+
+
 }

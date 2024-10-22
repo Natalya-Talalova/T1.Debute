@@ -13,8 +13,6 @@ import java.util.Objects;
 @Table(name = "users")
 public class User {
 
-    //TODO Profile picture
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -70,6 +68,10 @@ public class User {
     @Column(name = "visibility", nullable = false)
     @NotNull
     boolean visibility;
+
+    @Lob
+    @Column(name = "profile_picture", columnDefinition = "BLOB")
+    byte[] profilePicture;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();
@@ -172,6 +174,14 @@ public class User {
 
     public boolean isVisibility() {
         return visibility;
+    }
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
   @Override

@@ -4,6 +4,7 @@ import com.team8.team_management_service.dto.TeammateDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
+import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.mapper.TeammateMapper;
 import com.team8.team_management_service.repository.TeammateRepository;
 import org.springframework.stereotype.Service;
@@ -22,40 +23,40 @@ public class TeammateServiceImpl implements TeammateService {
         this.teammateRepository = teammateRepository;
     }
 
-//    @Override
-//    public TeammateDto create(TeammateDto teammateDto) {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<TeammateDto> findAllByTeamId(Long teamId) {
-//        return teammateMapper.toDtoList(teammateRepository.findByTeamId(teamId));
-//    }
-//
-//    @Override
-//    public TeammateDto update(TeammateDto teammate, Long id) {
-//        return null;
-//    }
-//
-//    @Override
-//    public TeammateDto findById(Long teamId, Long teammateId) {
-//        Teammate teammate = teammateRepository.findById(teammateId)
-//                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
-//        return teammateMapper.toDto(teammate);
-//    }
+    @Override
+    public TeammateDto create(TeammateDto teammateDto) {
+        return null;
+    }
+
+    @Override
+    public List<TeammateDto> findAllByTeamId(Long teamId) {
+        return teammateMapper.toDtoList(teammateRepository.findByTeamId(teamId));
+    }
+
+    @Override
+    public TeammateDto update(TeammateDto teammate, Long id) {
+        return null;
+    }
+
+    @Override
+    public TeammateDto findById(Long teamId, Long teammateId) {
+        Teammate teammate = teammateRepository.findById(teammateId)
+                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
+        return teammateMapper.toDto(teammate);
+    }
 
     @Override
     public TeammateDto findById(Long id) {
         return null;
     }
 
-//    @Override
-//    public TeammateDto addTeammate(Long teamId, TeammateDto teammateDto) {
-//        Teammate teammate = teammateMapper.toEntity(teammateDto);
-//        teammate.getTeam().setId(teamId); // Устанавливаем ID команды
-//        teammate = teammateRepository.save(teammate);
-//        return teammateMapper.toDto(teammate);
-//    }
+    @Override
+    public TeammateDto addTeammate(Long teamId, TeammateDto teammateDto) {
+        Teammate teammate = teammateMapper.toEntity(teammateDto);
+        teammate.getTeam().setId(teamId); // Устанавливаем ID команды
+        teammate = teammateRepository.save(teammate);
+        return teammateMapper.toDto(teammate);
+    }
 
     @Override
     public List<TeammateDto> findAll(Long teamId) {
