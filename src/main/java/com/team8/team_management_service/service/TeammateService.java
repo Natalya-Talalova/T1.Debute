@@ -1,6 +1,7 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface TeammateService {
 
     // Удаление участника команды
     void delete(Long teammateId);
+
+    List<Team> findTeamsByUserId(Long userId);
 }

@@ -1,6 +1,7 @@
 package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
 import com.team8.team_management_service.service.TeammateService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,6 +59,12 @@ public class TeammateController {
     @DeleteMapping("/{teammateId}")
     public void deleteTeammate(@PathVariable("teamId") Long teamId, @PathVariable("teammateId") Long teammateId) {
         teammateService.delete(teammateId);
+    }
+
+    @Operation(summary = "Найти все команды пользователя")
+    @GetMapping("teams/search?userId")
+    public List<Team> findTeamsByUserId(@RequestParam("userId") Long userId) {
+        return teammateService.findTeamsByUserId(userId);
     }
 
 }

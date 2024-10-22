@@ -1,12 +1,15 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.entity.Team;
+import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
 import com.team8.team_management_service.mapper.TeammateMapper;
 import com.team8.team_management_service.repository.TeammateRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeammateServiceImpl implements TeammateService {
@@ -77,6 +80,13 @@ public class TeammateServiceImpl implements TeammateService {
     @Override
     public void delete(Long id) {
 
+    }
+
+    public List<Team> findTeamsByUserId(Long userId) {
+        return teammateRepository.findByUserId(userId)
+                .stream()
+                .map(Teammate::getTeam)
+                .collect(Collectors.toList());
     }
 
 //    @Override
