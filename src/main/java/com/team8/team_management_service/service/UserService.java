@@ -4,7 +4,6 @@ import com.team8.team_management_service.dto.UserDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UserService{
 
@@ -25,4 +24,6 @@ public interface UserService{
     void updateProfilePicture(Long id, MultipartFile file);
 
     List<UserDto> searchUsers(String query);
+
+    List<UserDto> findByQueryAndNoTeamId(String query, Long noTeamId);
 }
