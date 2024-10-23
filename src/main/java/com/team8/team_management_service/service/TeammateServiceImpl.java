@@ -44,17 +44,8 @@ public class TeammateServiceImpl implements TeammateService {
     }
 
     @Override
-    public TeammateDto update(TeammateDto teammateDto, Long teammateId) {
-        return null;
-    }
-
-    @Override
     public TeammateDto partialUpdate(TeammateDto teammateDto, Long teammateId) {
         return null;
-    }
-
-    @Override
-    public void delete(Long id) {
     }
 
     public List<Team> findTeamsByUserId(Long userId) {
@@ -64,33 +55,27 @@ public class TeammateServiceImpl implements TeammateService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public TeammateDto updateTeammate(Long teamId, Long teammateId, TeammateDto teammateDto) {
-//        Teammate existingTeammate = teammateRepository.findById(teammateId)
-//                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
-//        if (!existingTeammate.getTeam().getId().equals(teamId)) {
-//            throw new IllegalArgumentException("Teammate does not belong to this team");
-//        }
-//        Teammate updatedTeammate = teammateMapper.toEntity(teammateDto);
-//        updatedTeammate.setId(teammateId);
-//        updatedTeammate.getTeam().setId(teamId);
-//        return teammateMapper.toDto(teammateRepository.save(updatedTeammate));
-//    }
-//
-//    @Override
-//    public TeammateDto partialUpdateTeammate(Long teamId, Long teammateId, TeammateDto teammateDto) {
-//        return null;
-//    }
-//
-//
-//    @Override
-//    public void deleteTeammate(Long teamId, Long teammateId) {
-//        Teammate teammate = teammateRepository.findById(teammateId)
-//                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
-//        if (!teammate.getTeam().getId().equals(teamId)) {
-//            throw new IllegalArgumentException("Teammate does not belong to this team");
-//        }
-//        teammateRepository.delete(teammate);
-//    }
+    @Override
+    public TeammateDto update(Long teamId, Long teammateId, TeammateDto teammateDto) {
+        Teammate existingTeammate = teammateRepository.findById(teammateId)
+                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
+        if (!existingTeammate.getTeam().getId().equals(teamId)) {
+            throw new IllegalArgumentException("Teammate does not belong to this team");
+        }
+        Teammate updatedTeammate = teammateMapper.toEntity(teammateDto);
+        updatedTeammate.setId(teammateId);
+        updatedTeammate.getTeam().setId(teamId);
+        return teammateMapper.toDto(teammateRepository.save(updatedTeammate));
+    }
+
+    @Override
+    public void delete(Long teamId, Long teammateId) {
+        Teammate teammate = teammateRepository.findById(teammateId)
+                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
+        if (!teammate.getTeam().getId().equals(teamId)) {
+            throw new IllegalArgumentException("Teammate does not belong to this team");
+        }
+        teammateRepository.delete(teammate);
+    }
 }
 

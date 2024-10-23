@@ -16,6 +16,8 @@ import java.util.List;
 @RequestMapping("/teams/{teamId}/teammates")
 public class TeammateController {
 
+    //TODO: добавить фото профиля команды
+
     private final TeammateService teammateService;
 
     public TeammateController(TeammateService teammateService) {

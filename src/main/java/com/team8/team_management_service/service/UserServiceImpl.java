@@ -33,14 +33,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto update(UserDto user, Long id) {
-        User entity = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
-        User updatedUser = userMapper.partialUpdate(user, entity);
-        return userMapper.toDto(updatedUser);
-    }
-
-    @Override
     public void delete(Long id) {
         if (!userRepository.existsById(id)) {
             throw new EntityNotFoundByIdException(User.class, id);
@@ -79,6 +71,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
         User updatedUser = userMapper.partialUpdate(userDto, user);
         updatedUser = userRepository.save(updatedUser);
+        return userMapper.toDto(updatedUser);
+    }
+
+    @Override
+    public UserDto update(UserDto user, Long id) {
+        User entity = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
+        User updatedUser = userMapper.partialUpdate(user, entity);
         return userMapper.toDto(updatedUser);
     }
 

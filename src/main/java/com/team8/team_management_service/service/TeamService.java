@@ -22,11 +22,4 @@ public interface TeamService {
     TeamDto findByTeamName(String teamName);
 
     List<TeamDto> findAll();
-
-    TeamDto partialUpdate(Long id, Map<String, Object> fields);
-
-    TeamDto partialUpdate(Long id, TeamDto teamDto);
-
-
-
 }

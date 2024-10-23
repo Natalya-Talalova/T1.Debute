@@ -17,15 +17,12 @@ public interface TeammateService {
     // Создание участника в команде
     TeammateDto create(Long teamId, Long userId, TeammateRole role);
 
-    // Обновление участника команды
-    // Полное обновление участника команды
-    TeammateDto update(TeammateDto teammateDto, Long teammateId);
-
     // Частичное обновление участника команды
     TeammateDto partialUpdate(TeammateDto teammateDto, Long teammateId);
 
-    // Удаление участника команды
-    void delete(Long teammateId);
-
     List<Team> findTeamsByUserId(Long userId);
+
+    TeammateDto update(Long teamId, Long teammateId, TeammateDto teammateDto);
+
+    void delete(Long teamId, Long teammateId);
 }
