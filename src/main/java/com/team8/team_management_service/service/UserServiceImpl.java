@@ -5,6 +5,7 @@ import com.team8.team_management_service.entity.User;
 import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.mapper.UserMapper;
 import com.team8.team_management_service.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,14 +15,10 @@ import java.util.List;
 
 @Transactional
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     @Override
     public UserDto update(UserDto user, Long id) {

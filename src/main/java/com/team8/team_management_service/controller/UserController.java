@@ -4,6 +4,7 @@ import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.User;
 import com.team8.team_management_service.repository.UserRepository;
 import com.team8.team_management_service.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final UserRepository userRepository;
-
-    public UserController(UserService userService, UserRepository userRepository) {
-        this.userService = userService;
-        this.userRepository = userRepository;
-    }
 
     @GetMapping
     public List<UserDto> getAllUsers() {

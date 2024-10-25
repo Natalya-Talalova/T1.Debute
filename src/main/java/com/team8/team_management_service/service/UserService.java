@@ -1,10 +1,12 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.UserDto;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Service
 public interface UserService{
 
     UserDto create(UserDto userDto);

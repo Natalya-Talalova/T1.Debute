@@ -3,12 +3,17 @@ package com.team8.team_management_service.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -75,114 +80,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
-
-    public void setMessenger(String messenger) {
-        this.messenger = messenger;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setSkills(String skills) {
-        this.skills = skills;
-    }
-
-    public void setAreaOfResponsibility(String areaOfResponsibility) {
-        this.areaOfResponsibility = areaOfResponsibility;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public String getMessenger() {
-        return messenger;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getSkills() {
-        return skills;
-    }
-
-    public String getAreaOfResponsibility() {
-        return areaOfResponsibility;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
 
   @Override
   public final boolean equals(Object o) {
