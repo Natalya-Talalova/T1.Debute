@@ -1,11 +1,14 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface TeammateService {
 
     // Получение участника по идентификатору участника
@@ -22,7 +25,7 @@ public interface TeammateService {
 
     List<Team> findTeamsByUserId(Long userId);
 
-    TeammateDto update(Long teamId, Long teammateId, TeammateDto teammateDto);
+    TeammateDto update(Long teammateId, TeammateDto teammateDto);
 
-    void delete(Long teamId, Long teammateId);
+    void delete(Long teammateId);
 }

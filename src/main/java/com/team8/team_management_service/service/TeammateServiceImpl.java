@@ -1,6 +1,7 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
@@ -45,7 +46,11 @@ public class TeammateServiceImpl implements TeammateService {
 
     @Override
     public TeammateDto partialUpdate(TeammateDto teammateDto, Long teammateId) {
-        return null;
+        Teammate teammate = teammateRepository.findById(teammateId)
+                .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
+        Teammate updatedTeammate = teammateMapper.partialUpdate(teammateDto, teammate);
+        updatedTeammate = teammateRepository.save(updatedTeammate);
+        return teammateMapper.toDto(updatedTeammate);
     }
 
     public List<Team> findTeamsByUserId(Long userId) {
@@ -56,25 +61,18 @@ public class TeammateServiceImpl implements TeammateService {
     }
 
     @Override
-    public TeammateDto update(Long teamId, Long teammateId, TeammateDto teammateDto) {
+    public TeammateDto update(Long teammateId, TeammateDto teammateDto) {
         Teammate existingTeammate = teammateRepository.findById(teammateId)
                 .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
-        if (!existingTeammate.getTeam().getId().equals(teamId)) {
-            throw new IllegalArgumentException("Teammate does not belong to this team");
-        }
         Teammate updatedTeammate = teammateMapper.toEntity(teammateDto);
         updatedTeammate.setId(teammateId);
-        updatedTeammate.getTeam().setId(teamId);
         return teammateMapper.toDto(teammateRepository.save(updatedTeammate));
     }
 
     @Override
-    public void delete(Long teamId, Long teammateId) {
+    public void delete(Long teammateId) {
         Teammate teammate = teammateRepository.findById(teammateId)
                 .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
-        if (!teammate.getTeam().getId().equals(teamId)) {
-            throw new IllegalArgumentException("Teammate does not belong to this team");
-        }
         teammateRepository.delete(teammate);
     }
 }
