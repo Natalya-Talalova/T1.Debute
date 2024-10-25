@@ -3,9 +3,9 @@ package com.team8.team_management_service.controller;
 import com.team8.team_management_service.dto.TeammateDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
-import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.service.TeammateService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/teams/{teamId}/teammates")
+@AllArgsConstructor
 public class TeammateController {
 
     private final TeammateService teammateService;
-
-    public TeammateController(TeammateService teammateService) {
-        this.teammateService = teammateService;
-    }
 
     @Operation(summary = "Получить всех участников команды")
     @GetMapping
@@ -79,12 +76,6 @@ public class TeammateController {
                                                       @PathVariable("teammate_id") Long teammateId,
                                                       @RequestBody TeammateDto teammateDto) {
         return ResponseEntity.ok(teammateService.update(teammateDto, teammateId));
-    }
-
-    @PatchMapping("/{teammate_id}")
-    public ResponseEntity<TeammateDto> partialUpdateTeammate(@PathVariable("team_id") Long teamId,
-                                                             @RequestBody TeammateDto teammateDto) {
-        return ResponseEntity.ok(teammateService.partialUpdate(teammateDto, teamId));
     }
 
     @DeleteMapping("/{teammate_id}")

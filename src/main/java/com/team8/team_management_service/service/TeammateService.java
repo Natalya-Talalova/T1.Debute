@@ -5,10 +5,13 @@ import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface TeammateService {
+    //List<TeammateDto> findAll();
 
    // TeammateDto findById(Long teamId, Long teammateId);
 
