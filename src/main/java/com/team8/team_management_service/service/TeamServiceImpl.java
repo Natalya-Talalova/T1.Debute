@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Transactional
 @Service
@@ -102,5 +101,13 @@ public class TeamServiceImpl implements TeamService {
         Team updatedTeam =teamMapper.partialUpdate(fields, team);
         updatedTeam = teamRepository.save(team);
         return teamMapper.toDto(updatedTeam);
+    }
+
+    @Override
+    public List<TeamDto> findTeamsByUserId(Long userId) {
+        return teamRepository.findTeamsByUserId(userId)
+                .stream()
+                .map(teamMapper::toDto)
+                .toList();
     }
 }

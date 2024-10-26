@@ -16,11 +16,11 @@ public class Teammate {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team_id", nullable = false, updatable = false)
     private Team team;
 
     @ElementCollection(targetClass = TeammateRole.class)
