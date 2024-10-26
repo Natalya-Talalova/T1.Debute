@@ -1,9 +1,13 @@
 package com.team8.team_management_service.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "teammate", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"user_id", "team_id"})
@@ -16,11 +20,11 @@ public class Teammate {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team_id", nullable = false, updatable = false)
     private Team team;
 
     @ElementCollection(targetClass = TeammateRole.class)
@@ -31,32 +35,4 @@ public class Teammate {
     @Enumerated(EnumType.STRING)
     @Column(name = "teammate_role", nullable = false)
     private Set<TeammateRole> roles;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public Set<TeammateRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<TeammateRole> roles) {
-        this.roles = roles;
-    }
 }

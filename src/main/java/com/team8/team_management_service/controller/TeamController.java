@@ -3,7 +3,7 @@ package com.team8.team_management_service.controller;
 import com.team8.team_management_service.dto.TeamDto;
 import com.team8.team_management_service.service.TeamService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/teams")
+@AllArgsConstructor
 public class TeamController {
 
     private final TeamService teamService;
-
-    @Autowired
-    public TeamController(TeamService teamService) {
-        this.teamService = teamService;
-    }
 
     @Operation(summary = "Получить все команды")
     @GetMapping
@@ -70,5 +66,11 @@ public class TeamController {
     public ResponseEntity<HttpStatus> deleteByTeamName(@RequestParam(name = "n  ame") String teamName) {
         teamService.deleteByTeamName(teamName);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Найти все команды пользователя")
+    @GetMapping("teams/search?userId")
+    public List<TeamDto> findTeamsByUserId(@RequestParam("userId") Long userId) {
+        return teamService.findTeamsByUserId(userId);
     }
 }
