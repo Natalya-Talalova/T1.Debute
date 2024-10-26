@@ -1,9 +1,12 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeamDto;
+import com.team8.team_management_service.entity.Team;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface TeamService {
 
     TeamDto create(TeamDto teamDto);
@@ -21,9 +24,4 @@ public interface TeamService {
     TeamDto findByTeamName(String teamName);
 
     List<TeamDto> findAll();
-
-    TeamDto partialUpdate(Long id, TeamDto teamDto);
-
-
-    List<TeamDto> findTeamsByUserId(Long userId);
 }

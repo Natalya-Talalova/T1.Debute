@@ -7,7 +7,7 @@ import com.team8.team_management_service.exception.EntityNotFoundByNameException
 import com.team8.team_management_service.exception.TeamNameConflictException;
 import com.team8.team_management_service.mapper.TeamMapper;
 import com.team8.team_management_service.repository.TeamRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,16 +15,11 @@ import java.util.List;
 
 @Transactional
 @Service
+@AllArgsConstructor
 public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
     private final TeamMapper teamMapper;
-
-    @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper) {
-        this.teamRepository = teamRepository;
-        this.teamMapper = teamMapper;
-    }
 
     @Override
     public TeamDto create(TeamDto teamDto) {
@@ -91,23 +86,5 @@ public class TeamServiceImpl implements TeamService {
         Team team = teamRepository.findByName(teamName)
                 .orElseThrow(() -> new EntityNotFoundByNameException(Team.class, teamName));
         return teamMapper.toDto(team);
-    }
-
-    @Override
-    @Transactional
-    public TeamDto partialUpdate(Long id, TeamDto fields) {
-        Team team = teamRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByIdException(Team.class, id));
-        Team updatedTeam =teamMapper.partialUpdate(fields, team);
-        updatedTeam = teamRepository.save(team);
-        return teamMapper.toDto(updatedTeam);
-    }
-
-    @Override
-    public List<TeamDto> findTeamsByUserId(Long userId) {
-        return teamRepository.findTeamsByUserId(userId)
-                .stream()
-                .map(teamMapper::toDto)
-                .toList();
     }
 }
