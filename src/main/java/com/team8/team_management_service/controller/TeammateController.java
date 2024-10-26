@@ -1,9 +1,7 @@
 package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.TeammateDto;
-import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
-import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.service.TeammateService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
@@ -66,5 +64,6 @@ public class TeammateController {
     @GetMapping("teams/search?userId")
     public List<Team> findTeamsByUserId(@RequestParam("userId") Long userId) {
         return teammateService.findTeamsByUserId(userId);
+
     }
 }

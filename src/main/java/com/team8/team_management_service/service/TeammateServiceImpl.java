@@ -36,6 +36,14 @@ public class TeammateServiceImpl implements TeammateService {
                 .toList();
     }
 
+//    @Override
+//    public TeammateDto addTeammate(Long teamId, UserDto teammateDto) {
+//        Teammate teammate = teammateMapper.toEntity(teammateDto);
+//        teammate.getTeam().setId(teamId); // Устанавливаем ID команды
+//        teammate = teammateRepository.save(teammate);
+//        return teammateMapper.toDto(teammate);
+//    }
+
     @Override
     public TeammateDto create(Long teamId, Long userId, TeammateRole role) {
         Teammate entity = teammateMapper.toEntity(userId, teamId, role);

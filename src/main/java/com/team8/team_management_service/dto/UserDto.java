@@ -2,6 +2,7 @@ package com.team8.team_management_service.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import java.util.Objects;
 /**
  * DTO for {@link com.team8.team_management_service.entity.User}
  */
+@Getter
 public class UserDto implements Serializable {
 
     private final Long id;
@@ -64,62 +66,6 @@ public class UserDto implements Serializable {
         this.age = age;
         this.visibility = visibility;
         this.profilePicture = profilePicture;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public String getMessenger() {
-        return messenger;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getSkills() {
-        return skills;
-    }
-
-    public String getAreaOfResponsibility() {
-        return areaOfResponsibility;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public boolean getVisibility() {
-        return visibility;
-    }
-
-    public byte[] getProfilePicture() {
-        return profilePicture;
     }
 
     @Override

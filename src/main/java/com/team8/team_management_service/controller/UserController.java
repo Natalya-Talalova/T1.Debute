@@ -2,8 +2,9 @@ package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.User;
-import com.team8.team_management_service.service.UserService;
 import com.team8.team_management_service.repository.UserRepository;
+import com.team8.team_management_service.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,19 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final UserRepository userRepository;
-
-    public UserController(UserService userService, UserRepository userRepository) {
-        this.userService = userService;
-        this.userRepository = userRepository;
-    }
 
     @GetMapping
     public List<UserDto> getAllUsers() {
@@ -41,7 +37,6 @@ public class UserController {
         return userService.findById(id);
     }
 
-    // Обновление пользователя по ID
     @PutMapping("/{id}")
     public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable Long id) {
         return userService.update(userDto, id);
@@ -58,17 +53,15 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    // Поиск пользователя по юзернейму
     @GetMapping("?username={username}")
-    public ResponseEntity<List<UserDto>> getUsersByUsername(@PathVariable String username) {
-        List<UserDto> users = userService.findByUsername(username);
-        return ResponseEntity.ok(users);
+    public List<UserDto> getUsersByUsername(@PathVariable String username) {
+        return userService.findByUsername(username);
     }
 
     @PatchMapping("/user/{id}")
-    public ResponseEntity<String> updateProfilePicture(@PathVariable Long id, @RequestParam("profilePicture")MultipartFile file) {
+    public String updateProfilePicture(@PathVariable Long id, @RequestParam("profilePicture") MultipartFile file) {
         userService.updateProfilePicture(id, file);
-        return ResponseEntity.ok("Profile picture updated successfully");
+        return "Profile picture updated successfully";
     }
 
     @GetMapping("/{id}/profile-picture")
@@ -80,10 +73,13 @@ public class UserController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(profilePicture);
     }
 
-    @GetMapping("?search={query}")
-    public ResponseEntity<List<UserDto>> searchUsers(@RequestParam("query") String query) {
-        List<UserDto> users = userService.searchUsers(query);
-        return ResponseEntity.ok(users);
+    @GetMapping("?search={query}&noTeamId={noTeamId}")
+    public List<UserDto> searchUsers(@RequestParam("query") String query,
+                                     @RequestParam("noTeamId") Long noTeamId) {
+        if (noTeamId != null) {
+            return userService.findByQueryAndNoTeamId(query, noTeamId);
+        }
+        return userService.searchUsers(query);
     }
 
 }
