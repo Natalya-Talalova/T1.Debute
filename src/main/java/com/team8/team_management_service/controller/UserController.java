@@ -69,7 +69,7 @@ public class UserController {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        byte[] profilePicture = user.getProfilePicture();
+        byte[] profilePicture = user.getPic();
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(profilePicture);
     }
 
