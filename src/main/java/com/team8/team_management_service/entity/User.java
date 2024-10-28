@@ -58,10 +58,6 @@ public class User {
     @Size(min = 2, max = 256, message = "Messenger must be between 2 and 256 characters")
     String messenger;
 
-    public Long getId() {
-        return id;
-    }
-
     @Column(name = "skills", nullable = false, length = 2048)
     @Size(min = 2, max = 2048, message = "Skills must be between 2 and 2048 characters")
     String skills;

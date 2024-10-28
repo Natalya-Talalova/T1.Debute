@@ -68,9 +68,9 @@ public class TeamController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Найти все команды пользователя")
+/*    @Operation(summary = "Найти все команды пользователя")
     @GetMapping("teams/search?userId")
     public List<TeamDto> findTeamsByUserId(@RequestParam("userId") Long userId) {
         return teamService.findTeamsByUserId(userId);
-    }
+    }*/
 }

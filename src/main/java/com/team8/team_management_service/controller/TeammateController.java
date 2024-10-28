@@ -1,6 +1,7 @@
 package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
 import com.team8.team_management_service.service.TeammateService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,7 +46,7 @@ public class TeammateController {
     @Operation(summary = "Обновить участника команды")
     @PutMapping("/{teammateId}")
     public TeammateDto update(@RequestBody TeammateDto teammateDto, @PathVariable("teammateId") Long teammateId) {
-        return teammateService.update(teammateId, teammateDto);
+        return teammateService.update(teammateDto, teammateId);
     }
 
     @Operation(summary = "Частичное обновление участника команды")

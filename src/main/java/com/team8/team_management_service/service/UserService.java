@@ -9,19 +9,19 @@ import java.util.List;
 @Service
 public interface UserService{
 
+    List<UserDto> findAll();
+
+    UserDto findById(Long id);
+
     UserDto create(UserDto userDto);
+
+    UserDto partialUpdate(Long id, UserDto userDto);
 
     UserDto update(UserDto user, Long id);
 
     void delete(Long id);
 
-    UserDto findById(Long id);
-
-    List<UserDto> findAll();
-
     List<UserDto> findByUsername(String username);
-
-    UserDto partialUpdate(Long id, UserDto userDto);
 
     void updateProfilePicture(Long id, MultipartFile file);
 
