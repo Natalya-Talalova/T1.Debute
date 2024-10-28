@@ -43,5 +43,4 @@ class UserValidationTest {
         assertThat(savedUser.getId()).isNotNull();
     }
 
-
 }
