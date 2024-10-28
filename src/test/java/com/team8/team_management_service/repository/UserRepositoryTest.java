@@ -28,7 +28,7 @@ class UserRepositoryTest {
     void setUp() {
         validUser = new User();
         validUser.setPhoneNumber("12345678901");
-        validUser.setAge(30);
+//        validUser.setAge(30);
         validUser.setUsername("username");
         validUser.setPassword("password123");
         validUser.setName("John");
@@ -82,7 +82,7 @@ class UserRepositoryTest {
 
         User duplicateUser = new User();
         duplicateUser.setPhoneNumber("09876543210");
-        duplicateUser.setAge(25);
+//        duplicateUser.setAge(25);
         duplicateUser.setUsername("username"); // Дублирующийся username
         duplicateUser.setPassword("anotherpass123");
         duplicateUser.setName("Jane");
@@ -137,7 +137,7 @@ class UserRepositoryTest {
 
         User differentUser = new User();
         differentUser.setPhoneNumber("09876543210");
-        differentUser.setAge(25);
+//        differentUser.setAge(25);
         differentUser.setUsername("differentUser");
         differentUser.setPassword("differentPass123");
         differentUser.setName("Jane");

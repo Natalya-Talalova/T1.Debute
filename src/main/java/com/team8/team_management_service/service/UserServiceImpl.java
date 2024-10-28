@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         try {
-            user.setProfilePicture(file.getBytes());
+            user.setPic(file.getBytes());
             userRepository.save(user);
         } catch (IOException e) {
             throw new RuntimeException("Failed to save profile picture", e);

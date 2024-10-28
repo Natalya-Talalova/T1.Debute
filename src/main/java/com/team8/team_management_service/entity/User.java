@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,8 +47,9 @@ public class User {
     @Size(min = 11, max = 11)
     private String phoneNumber;
 
-    @Column(name = "age")
-    private LocalDate age;
+    @Basic
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
     @Column(name = "password")
     @Size(min = 8, max = 255)
@@ -77,15 +77,16 @@ public class User {
 
     @Column(name = "visibility", nullable = false)
     @NotNull
+    @Builder.Default
     private boolean visibility = true;
 
     @Lob
     @Basic(fetch = LAZY)
-    @Column(name = "PIC", columnDefinition = "BLOB NOT NULL")
+    @Column(name = "PIC")
     private byte[] pic;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Teammate> teammates = new ArrayList<>();
+    private List<Teammate> teammates;
 
     @Override
     public final int hashCode() {

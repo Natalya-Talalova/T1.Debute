@@ -11,15 +11,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUsername(String username);
 
     @Query("""
-            SELECT u FROM User u 
+            SELECT u FROM User u
             WHERE u.username LIKE :query
-            OR u.name LIKE :query 
-            OR u.lastname LIKE :query 
-            OR u.phoneNumber LIKE :query 
-            OR u.skills LIKE :query 
-            OR u.position LIKE :query 
-            OR u.areaOfResponsibility LIKE :query 
-            OR u.messenger LIKE :query 
+            OR u.name LIKE :query
+            OR u.lastname LIKE :query
+            OR u.phoneNumber LIKE :query
+            OR u.skills LIKE :query
+            OR u.position LIKE :query
+            OR u.areaOfResponsibility LIKE :query
+            OR u.messenger LIKE :query
             OR u.experience LIKE :query
             """)
     List<User> searchUsers(@Param("query") String query);

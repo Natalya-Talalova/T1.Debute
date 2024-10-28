@@ -34,7 +34,7 @@ class TeammateRepositoryTest {
         // Создаем и сохраняем пользователя
         user = new User();
         user.setPhoneNumber("12345678901");
-        user.setAge(30);
+//        user.setAge(30);
         user.setUsername("username");
         user.setPassword("password123");
         user.setName("John");

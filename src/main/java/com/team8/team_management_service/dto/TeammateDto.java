@@ -2,6 +2,7 @@ package com.team8.team_management_service.dto;
 
 import com.team8.team_management_service.entity.TeammateRole;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
  * DTO for {@link com.team8.team_management_service.entity.Teammate}
  */
 @Data
+@AllArgsConstructor
 public class TeammateDto {
 
     private final Long id;
