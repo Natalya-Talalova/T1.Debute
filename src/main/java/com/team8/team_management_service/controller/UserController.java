@@ -2,8 +2,8 @@ package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.User;
-import com.team8.team_management_service.service.UserService;
 import com.team8.team_management_service.repository.UserRepository;
+import com.team8.team_management_service.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 public class UserController {

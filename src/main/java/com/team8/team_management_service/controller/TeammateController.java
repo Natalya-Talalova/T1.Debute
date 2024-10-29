@@ -3,7 +3,6 @@ package com.team8.team_management_service.controller;
 import com.team8.team_management_service.dto.TeammateDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
-import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.service.TeammateService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/teams/{teamId}/teammates")
 public class TeammateController {
