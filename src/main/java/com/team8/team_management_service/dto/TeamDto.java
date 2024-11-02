@@ -1,5 +1,7 @@
 package com.team8.team_management_service.dto;
 
+import com.team8.team_management_service.entity.TeamStatus;
+import com.team8.team_management_service.entity.TeamType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -19,4 +21,9 @@ public class TeamDto implements Serializable {
     @Size(message = "Description must be between 2 and 256 characters", min = 2, max = 256)
          @NotBlank
     private final String description;
+    @NotBlank
+    private final TeamStatus teamStatus;
+    @NotBlank
+    private final TeamType teamType;
+    private final String imageUrl;
 }
