@@ -6,6 +6,7 @@ import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
 import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.mapper.TeammateMapper;
+import com.team8.team_management_service.repository.TeamRepository;
 import com.team8.team_management_service.repository.TeammateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class TeammateServiceImpl implements TeammateService {
 
     private final TeammateMapper teammateMapper;
     private final TeammateRepository teammateRepository;
+    private final TeamRepository teamRepository;
 
     @Override
     public TeammateDto findById(Long id) {
@@ -29,7 +31,7 @@ public class TeammateServiceImpl implements TeammateService {
 
     @Override
     public List<TeammateDto> findAll(Long teamId) {
-        return teammateRepository.findAll()
+        return teammateRepository.findByTeamId(teamId)
                 .stream()
                 .map(teammateMapper::toDto)
                 .toList();
