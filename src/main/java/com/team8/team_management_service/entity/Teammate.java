@@ -34,5 +34,5 @@ public class Teammate {
     )
     @Enumerated(EnumType.STRING)
     @Column(name = "teammate_role", nullable = false)
-    private Set<TeammateRole> roles;
+    private Set<TeammateRole> roles = Set.of(TeammateRole.MEMBER);
 }

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
@@ -37,6 +38,7 @@ public class UserController {
         return userService.findById(id);
     }
 
+    // Обновление пользователя по ID
     @PutMapping("/{id}")
     public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable Long id) {
         return userService.update(userDto, id);
@@ -69,7 +71,7 @@ public class UserController {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        byte[] profilePicture = user.getProfilePicture();
+        byte[] profilePicture = user.getPic();
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(profilePicture);
     }
 

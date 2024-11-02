@@ -83,20 +83,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto update(UserDto user, Long id) {
-        User entity = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
-        User updatedUser = userMapper.partialUpdate(user, entity);
-        return userMapper.toDto(updatedUser);
-    }
-
-    @Override
     public void updateProfilePicture(Long id, MultipartFile file) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         try {
-            user.setProfilePicture(file.getBytes());
+            user.setPic(file.getBytes());
             userRepository.save(user);
         } catch (IOException e) {
             throw new RuntimeException("Failed to save profile picture", e);

@@ -3,17 +3,21 @@ package com.team8.team_management_service.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,66 +27,75 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "phone_number", nullable = false, length = 11)
-    @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
-    String phoneNumber;
-
-    @Column(name = "age", nullable = false)
-    int age;
+    @Column(name = "name", nullable = false)
+    @Size(min = 2, max = 255)
+    private String name;
 
     @Column(name = "username", nullable = false, unique = true)
-    @Size(min = 2, max = 256, message = "Username must be between 2 and 256 characters")
+    @Size(min = 2, max = 255)
     private String username;
 
-    @Column(name = "password", nullable = false)
-    @Size(min = 8, max = 256, message = "Password must be between 8 and 256 characters")
+    @Column(name = "lastname")
+    @Size(min = 2, max = 255)
+    private String lastname;
+
+    @Column(name = "email", nullable = false, unique = true)
+    @Size(min = 2, max = 255)
+    private String email;
+
+    @Column(name = "phone_number", length = 11)
+    @Size(min = 11, max = 11)
+    private String phoneNumber;
+
+    @Basic
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    @Column(name = "password")
+    @Size(min = 8, max = 255)
     private String password;
 
-    @Column(name = "name", nullable = false, length = 256)
-    @Size(min = 2, max = 256, message = "Name must be between 2 and 256 characters")
-    String name;
+    @Column(name = "position")
+    @Size(min = 2, max = 255)
+    private String position;
 
-    @Column(name = "lastname", nullable = false, length = 256)
-    @Size(min = 2, max = 256, message = "lastname must be between 2 and 256 characters")
-    String lastname;
+    @Column(name = "experience", length = 2048)
+    @Size(min = 2, max = 2048)
+    private String experience;
 
-    @Column(name = "position", nullable = false, length = 256)
-    @Size(min = 2, max = 256, message = "Position must be between 2 and 256 characters")
-    String position;
+    @Column(name = "messenger")
+    @Size(min = 2, max = 255)
+    private String messenger;
 
-    @Column(name = "experience", nullable = false, length = 2048)
-    @Size(min = 2, max = 2048, message = "Expirience must be between 2 and 2048 characters")
-    String experience;
+    @Column(name = "skills", length = 2048)
+    @Size(min = 2, max = 2048)
+    private String skills;
 
-    @Column(name = "messenger", nullable = false, length = 256)
-    @Size(min = 2, max = 256, message = "Messenger must be between 2 and 256 characters")
-    String messenger;
-
-    public Long getId() {
-        return id;
-    }
-
-    @Column(name = "skills", nullable = false, length = 2048)
-    @Size(min = 2, max = 2048, message = "Skills must be between 2 and 2048 characters")
-    String skills;
-
-    @Column(name = "area_of_responsibility", nullable = false, length = 512)
-    @Size(min = 2, max = 512, message = "Area of responsibility must be between 2 and 512 characters")
-    String areaOfResponsibility;
+    @Column(name = "area_of_responsibility", length = 512)
+    @Size(min = 2, max = 512)
+    private String areaOfResponsibility;
 
     @Column(name = "visibility", nullable = false)
     @NotNull
-    boolean visibility;
+    @Builder.Default
+    private boolean visibility = true;
 
     @Lob
-    @Column(name = "profile_picture")
-    byte[] profilePicture;
+    @Basic(fetch = LAZY)
+    @Column(name = "PIC")
+    private byte[] pic;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Teammate> teammates = new ArrayList<>();
+    private List<Teammate> teammates;
 
-  @Override
-  public final boolean equals(Object o) {
+    @Override
+    public final int hashCode() {
+    return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer()
+        .getPersistentClass().hashCode() : getClass().hashCode();
+    }
+
+    @Override
+    public final boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -100,12 +113,6 @@ public class User {
     }
     User user = (User) o;
     return id != null && Objects.equals(id, user.id);
-  }
-
-  @Override
-  public final int hashCode() {
-    return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer()
-        .getPersistentClass().hashCode() : getClass().hashCode();
-  }
+    }
 
 }

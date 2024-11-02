@@ -1,7 +1,9 @@
 package com.team8.team_management_service.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.Getter;
 
+@Getter
 public class EntityNotFoundByIdException extends EntityNotFoundException {
 
     private final Class<?> entityClass;
@@ -13,11 +15,4 @@ public class EntityNotFoundByIdException extends EntityNotFoundException {
         this.id = id;
     }
 
-    public Class<?> getEntityClass() {
-        return entityClass;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }

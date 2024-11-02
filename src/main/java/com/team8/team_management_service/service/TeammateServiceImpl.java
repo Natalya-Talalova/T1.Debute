@@ -1,7 +1,6 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
-import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
@@ -36,14 +35,6 @@ public class TeammateServiceImpl implements TeammateService {
                 .toList();
     }
 
-//    @Override
-//    public TeammateDto addTeammate(Long teamId, UserDto teammateDto) {
-//        Teammate teammate = teammateMapper.toEntity(teammateDto);
-//        teammate.getTeam().setId(teamId); // Устанавливаем ID команды
-//        teammate = teammateRepository.save(teammate);
-//        return teammateMapper.toDto(teammate);
-//    }
-
     @Override
     public TeammateDto create(Long teamId, Long userId, TeammateRole role) {
         Teammate entity = teammateMapper.toEntity(userId, teamId, role);
@@ -69,7 +60,7 @@ public class TeammateServiceImpl implements TeammateService {
     }
 
     @Override
-    public TeammateDto update(Long teammateId, TeammateDto teammateDto) {
+    public TeammateDto update(TeammateDto teammateDto, Long teammateId) {
         Teammate existingTeammate = teammateRepository.findById(teammateId)
                 .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
         Teammate updatedTeammate = teammateMapper.toEntity(teammateDto);
