@@ -31,6 +31,14 @@ public class Team {
     @Size(min = 2, max = 512)
     private String description;
 
+    @Enumerated
+    @Column(name = "team_status")
+    private TeamStatus teamStatus;
+
+    @Enumerated
+    @Column(name = "team_type")
+    private TeamType teamType;
+
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();
 
