@@ -6,6 +6,7 @@ import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface TeammateRepository extends JpaRepository<Teammate, Long> {

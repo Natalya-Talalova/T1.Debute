@@ -73,17 +73,15 @@ public class User {
 
     @Column(name = "area_of_responsibility", length = 512)
     @Size(min = 2, max = 512)
+  
     private String areaOfResponsibility;
 
-    @Column(name = "visibility", nullable = false)
-    @NotNull
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
     @Builder.Default
     private boolean visibility = true;
 
-    @Lob
-    @Basic(fetch = LAZY)
-    @Column(name = "PIC")
-    private byte[] pic;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates;

@@ -20,7 +20,6 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @GetMapping
     public List<UserDto> getAllUsers() {
@@ -60,21 +59,6 @@ public class UserController {
         return userService.findByUsername(username);
     }
 
-    @PatchMapping("/user/{id}")
-    public String updateProfilePicture(@PathVariable Long id, @RequestParam("profilePicture") MultipartFile file) {
-        userService.updateProfilePicture(id, file);
-        return "Profile picture updated successfully";
-    }
-
-    @GetMapping("/{id}/profile-picture")
-    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        byte[] profilePicture = user.getPic();
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(profilePicture);
-    }
-
     @GetMapping("?search={query}&noTeamId={noTeamId}")
     public List<UserDto> searchUsers(@RequestParam("query") String query,
                                      @RequestParam("noTeamId") Long noTeamId) {
@@ -82,6 +66,16 @@ public class UserController {
             return userService.findByQueryAndNoTeamId(query, noTeamId);
         }
         return userService.searchUsers(query);
+    }
+
+    @PutMapping("/{id}/profile-picture")
+    public void updateProfilePicture(@PathVariable Long id, @RequestBody String profilePictureUrl) {
+        userService.updateProfilePicture(id, profilePictureUrl);
+    }
+
+    @GetMapping("/{id}/profile-picture")
+    public String getProfilePicture(@PathVariable Long id) {
+        return userService.getProfilePicture(id);
     }
 
 }
