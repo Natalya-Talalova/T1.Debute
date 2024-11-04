@@ -31,8 +31,21 @@ public class Team {
     @Size(min = 2, max = 512)
     private String description;
 
+
+
+    @Enumerated
+    @Column(name = "team_status", nullable = false)
+    private TeamStatus teamStatus;
+
+    @Enumerated
+    @Column(name = "team_type", nullable = false)
+    private TeamType teamType;
+
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();
+
+    @Column(name = "image_url", length = 5000)
+    private String imageUrl;
 
     @Override
     public final boolean equals(Object o) {
