@@ -8,15 +8,15 @@ import java.util.List;
 @Service
 public interface TaskService {
 
-    List<TaskDto> findAll(Long userId);
+    List<TaskDto> findAll(Long teammateId);
 
-    TaskDto findById(Long userId, Long id);
+    TaskDto findById(Long teammateId, Long id);
 
-    TaskDto create(Long userId, TaskDto taskDto);
+    TaskDto create(Long teammateId, TaskDto taskDto);
 
-    TaskDto update(Long userId, TaskDto taskDto, Long id);
+    TaskDto update(Long teammateId, TaskDto taskDto, Long id);
 
-    void delete(Long userId, Long id);
+    void delete(Long teammateId, Long id);
 
-    TaskDto partialUpdate(Long userId, TaskDto taskDto, Long id);
+    TaskDto partialUpdate(Long teammateId, TaskDto taskDto, Long id);
 }

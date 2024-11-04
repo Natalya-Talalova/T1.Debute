@@ -40,39 +40,38 @@ public class User {
 
     @Column(name = "name", nullable = false, length = 256)
     @Size(min = 2, max = 256, message = "Name must be between 2 and 256 characters")
-    String name;
+    private String name;
 
     @Column(name = "lastname", nullable = false, length = 256)
     @Size(min = 2, max = 256, message = "lastname must be between 2 and 256 characters")
-    String lastname;
+    private String lastname;
 
     @Column(name = "position", nullable = false, length = 256)
     @Size(min = 2, max = 256, message = "Position must be between 2 and 256 characters")
-    String position;
+    private String position;
 
     @Column(name = "experience", nullable = false, length = 2048)
-    @Size(min = 2, max = 2048, message = "Expirience must be between 2 and 2048 characters")
-    String experience;
+    @Size(min = 2, max = 2048, message = "Experience must be between 2 and 2048 characters")
+    private String experience;
 
     @Column(name = "messenger", nullable = false, length = 256)
     @Size(min = 2, max = 256, message = "Messenger must be between 2 and 256 characters")
-    String messenger;
+    private String messenger;
 
     @Column(name = "skills", nullable = false, length = 2048)
     @Size(min = 2, max = 2048, message = "Skills must be between 2 and 2048 characters")
-    String skills;
+    private String skills;
 
     @Column(name = "area_of_responsibility", nullable = false, length = 512)
     @Size(min = 2, max = 512, message = "Area of responsibility must be between 2 and 512 characters")
-    String areaOfResponsibility;
+    private String areaOfResponsibility;
 
     @Column(name = "visibility", nullable = false)
     @NotNull
-    boolean visibility;
+    private boolean visibility;
 
-    @Lob
     @Column(name = "profile_picture")
-    byte[] profilePicture;
+    private String profilePicture;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();

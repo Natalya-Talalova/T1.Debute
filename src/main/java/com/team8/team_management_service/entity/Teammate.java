@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -26,6 +28,9 @@ public class Teammate {
     @ManyToOne(optional = false)
     @JoinColumn(name = "team_id", nullable = false, updatable = false)
     private Team team;
+
+    @OneToMany(mappedBy = "teammate", cascade = CascadeType.ALL)
+    private List<Task> tasks = new ArrayList<>();
 
     @ElementCollection(targetClass = TeammateRole.class)
     @CollectionTable(

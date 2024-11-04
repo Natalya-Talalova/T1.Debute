@@ -10,41 +10,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/api/teammates/{teammateId}/tasks")
 @AllArgsConstructor
 public class TaskController {
 
     private final TaskService taskService;
 
     @GetMapping
-    public List<TaskDto> findAll(@PathVariable("userId") Long userId) {
-        return taskService.findAll(userId);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public TaskDto create(@PathVariable("userId") Long userId, @RequestBody TaskDto taskDto) {
-        return taskService.create(userId, taskDto);
-    }
-
-    @PutMapping
-    public TaskDto update(@PathVariable("userId") Long userId, @RequestBody TaskDto taskDto, @PathVariable("taskId") Long taskId) {
-        return taskService.update(userId, taskDto, taskId);
-    }
-
-    @DeleteMapping("/{taskId}")
-    public ResponseEntity<Void> delete(@PathVariable("userId") Long userId, @PathVariable("taskId") Long taskId) {
-        taskService.delete(userId, taskId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PatchMapping("/{taskId}")
-    public TaskDto partialUpdate(@PathVariable("userId") Long userId, @RequestBody TaskDto taskDto, @PathVariable("taskId") Long taskId) {
-        return taskService.partialUpdate(userId, taskDto, taskId);
+    public List<TaskDto> getAllTasks(@PathVariable Long teammateId) {
+        return taskService.findAll(teammateId);
     }
 
     @GetMapping("/{taskId}")
-    public TaskDto findById(@PathVariable("userId") Long userId, @PathVariable("taskId") Long taskId) {
-        return taskService.findById(userId, taskId);
+    public TaskDto getTaskById(@PathVariable Long teammateId, @PathVariable Long taskId) {
+        return taskService.findById(teammateId, taskId);
+    }
+
+    @PostMapping
+    public ResponseEntity<TaskDto> createTask(@PathVariable Long teammateId, @RequestBody TaskDto taskDto) {
+        TaskDto createdTask = taskService.create(teammateId, taskDto);
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{taskId}")
+    public TaskDto updateTask(@PathVariable Long teammateId, @PathVariable Long taskId, @RequestBody TaskDto taskDto) {
+        return taskService.update(teammateId, taskDto, taskId);
+    }
+
+    @PatchMapping("/{taskId}")
+    public TaskDto partialUpdateTask(@PathVariable Long teammateId, @PathVariable Long taskId, @RequestBody TaskDto taskDto) {
+        return taskService.partialUpdate(teammateId, taskDto, taskId);
+    }
+
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long teammateId, @PathVariable Long taskId) {
+        taskService.delete(teammateId, taskId);
+        return ResponseEntity.noContent().build();
     }
 }
