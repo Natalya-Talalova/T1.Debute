@@ -22,8 +22,8 @@ public class TeamDto implements Serializable {
          @NotBlank
     private final String description;
     @NotBlank
-    private final TeamStatus teamStatus;
+    private final TeamStatus status;
     @NotBlank
-    private final TeamType teamType;
-    private final String imageUrl;
+    private final TeamType type;
+    private final String image;
 }
