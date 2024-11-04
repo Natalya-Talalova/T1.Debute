@@ -54,28 +54,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("?username={username}")
-    public List<UserDto> getUsersByUsername(@PathVariable String username) {
-        return userService.findByUsername(username);
-    }
-
     @GetMapping("?search={query}&noTeamId={noTeamId}")
     public List<UserDto> searchUsers(@RequestParam("query") String query,
-                                     @RequestParam("noTeamId") Long noTeamId) {
+                                     @RequestParam(name = "noTeamId", required = false) Long noTeamId) {
         if (noTeamId != null) {
             return userService.findByQueryAndNoTeamId(query, noTeamId);
         }
         return userService.searchUsers(query);
     }
-
-    @PutMapping("/{id}/profile-picture")
-    public void updateProfilePicture(@PathVariable Long id, @RequestBody String profilePictureUrl) {
-        userService.updateProfilePicture(id, profilePictureUrl);
-    }
-
-    @GetMapping("/{id}/profile-picture")
-    public String getProfilePicture(@PathVariable Long id) {
-        return userService.getProfilePicture(id);
-    }
-
 }
