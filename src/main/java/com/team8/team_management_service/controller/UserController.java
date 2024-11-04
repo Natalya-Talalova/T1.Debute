@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
@@ -36,6 +37,7 @@ public class UserController {
         return userService.findById(id);
     }
 
+    // Обновление пользователя по ID
     @PutMapping("/{id}")
     public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable Long id) {
         return userService.update(userDto, id);
@@ -56,7 +58,6 @@ public class UserController {
     public List<UserDto> getUsersByUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }
-
 
     @GetMapping("?search={query}&noTeamId={noTeamId}")
     public List<UserDto> searchUsers(@RequestParam("query") String query,

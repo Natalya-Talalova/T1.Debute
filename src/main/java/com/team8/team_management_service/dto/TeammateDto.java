@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -13,9 +12,11 @@ import java.util.Set;
  */
 @Data
 @AllArgsConstructor
-public class TeammateDto implements Serializable {
+public class TeammateDto {
 
     private final Long id;
+    private final UserDto user;
+    private final TeamDto team;
     @NotNull
     private final Set<TeammateRole> roles;
 }

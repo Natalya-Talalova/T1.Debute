@@ -23,16 +23,29 @@ public class Team {
     private Long id;
 
     @NotBlank
-    @Size(message = "Team name must be between 1 and 255 characters", min = 1, max = 255)
     @Column(name = "name", nullable = false, unique = true)
+    @Size(min = 1, max = 255)
     private String name;
 
-    @Column(name = "description", length = 256, nullable = false)
-    @Size(min = 2, max = 256, message = "Description must be between 2 and 256 characters")
+    @Column(name = "description", length = 512, nullable = false)
+    @Size(min = 2, max = 512)
     private String description;
+
+
+
+    @Enumerated
+    @Column(name = "team_status", nullable = false)
+    private TeamStatus teamStatus;
+
+    @Enumerated
+    @Column(name = "team_type", nullable = false)
+    private TeamType teamType;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();
+
+    @Column(name = "image_url", length = 5000)
+    private String imageUrl;
 
     @Override
     public final boolean equals(Object o) {
