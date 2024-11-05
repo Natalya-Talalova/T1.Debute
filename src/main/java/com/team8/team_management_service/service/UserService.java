@@ -23,9 +23,11 @@ public interface UserService{
 
     List<UserDto> findByUsername(String username);
 
-    void updateProfilePicture(Long id, MultipartFile file);
-
     List<UserDto> searchUsers(String query);
 
     List<UserDto> findByQueryAndNoTeamId(String query, Long noTeamId);
+
+    void updateProfilePicture(Long id, String priofilePicture);
+
+    String getProfilePicture(Long id);
 }

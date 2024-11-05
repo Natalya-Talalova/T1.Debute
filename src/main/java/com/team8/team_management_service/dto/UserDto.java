@@ -51,6 +51,4 @@ public class UserDto implements Serializable {
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final boolean visibility;
-    private final byte[] pic;
-
 }

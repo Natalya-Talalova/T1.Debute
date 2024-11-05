@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public interface TeammateService {
+    //List<TeammateDto> findAll();
 
     List<TeammateDto> findAll(Long teamId);
 

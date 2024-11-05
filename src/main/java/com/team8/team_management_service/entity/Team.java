@@ -34,18 +34,18 @@ public class Team {
 
 
     @Enumerated
-    @Column(name = "team_status", nullable = false)
-    private TeamStatus teamStatus;
+    @Column(name = "status", nullable = false)
+    private TeamStatus status;
 
     @Enumerated
-    @Column(name = "team_type", nullable = false)
-    private TeamType teamType;
+    @Column(name = "type", nullable = false)
+    private TeamType type;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Teammate> teammates = new ArrayList<>();
 
-    @Column(name = "image_url", length = 5000)
-    private String imageUrl;
+    @Column(name = "image", length = 5000)
+    private String image;
 
     @Override
     public final boolean equals(Object o) {
