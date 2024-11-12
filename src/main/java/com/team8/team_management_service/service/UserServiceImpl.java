@@ -6,11 +6,10 @@ import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.mapper.UserMapper;
 import com.team8.team_management_service.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @Transactional
@@ -96,18 +95,12 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
-
-    public String getProfilePicture(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id))
-                .getProfilePicture();
-    }
-
     @Override
-    public void updateProfilePicture(Long id, String profilePictureUrl) {
+    public ResponseEntity<String> updateProfilePicture(Long id, String profilePictureUrl) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByIdException(User.class, id));
         user.setProfilePicture(profilePictureUrl);
         userRepository.save(user);
+        return null;
     }
 }

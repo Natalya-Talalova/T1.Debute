@@ -1,11 +1,13 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.Teammate;
 import com.team8.team_management_service.entity.TeammateRole;
 import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.mapper.TeammateMapper;
+import com.team8.team_management_service.mapper.UserMapper;
 import com.team8.team_management_service.repository.TeamRepository;
 import com.team8.team_management_service.repository.TeammateRepository;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ public class TeammateServiceImpl implements TeammateService {
 
     private final TeammateMapper teammateMapper;
     private final TeammateRepository teammateRepository;
-    private final TeamRepository teamRepository;
+    private final UserMapper userMapper;
 
     @Override
     public TeammateDto findById(Long id) {
@@ -75,6 +77,13 @@ public class TeammateServiceImpl implements TeammateService {
         Teammate teammate = teammateRepository.findById(teammateId)
                 .orElseThrow(() -> new EntityNotFoundByIdException(Teammate.class, teammateId));
         teammateRepository.delete(teammate);
+    }
+
+    public List<UserDto> getUsersByTeamId(Long teamId) {
+        return teammateRepository.findByTeamId(teamId).stream()
+                .map(Teammate::getUser)
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
 

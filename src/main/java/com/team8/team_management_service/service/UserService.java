@@ -1,8 +1,8 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.UserDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,7 +27,5 @@ public interface UserService{
 
     List<UserDto> findByQueryAndNoTeamId(String query, Long noTeamId);
 
-    void updateProfilePicture(Long id, String priofilePicture);
-
-    String getProfilePicture(Long id);
+    ResponseEntity<String> updateProfilePicture(Long id, String priofilePicture);
 }

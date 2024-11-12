@@ -1,6 +1,7 @@
 package com.team8.team_management_service.service;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,6 @@ public interface TeammateService {
     void delete(Long teammateId);
 
     List<Team> findTeamsByUserId(Long userId);
+
+    public List<UserDto> getUsersByTeamId(Long teamId);
 }

@@ -37,7 +37,10 @@ public class Teammate {
             name = "teammate_role",
             joinColumns = @JoinColumn(name = "teammate_id")
     )
+
     @Enumerated(EnumType.STRING)
     @Column(name = "teammate_role", nullable = false)
     private Set<TeammateRole> roles = Set.of(TeammateRole.MEMBER);
+
+
 }
