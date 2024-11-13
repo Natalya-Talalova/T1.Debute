@@ -16,11 +16,4 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     void deleteByName(String teamName);
 
-    @Query("""
-                SELECT t FROM User u
-                LEFT JOIN u.teammates tm
-                LEFT JOIN tm.team t
-                WHERE u.id = :userId
-            """)
-    List<Team> findTeamsByUserId(@Param("userId") Long userId);
 }

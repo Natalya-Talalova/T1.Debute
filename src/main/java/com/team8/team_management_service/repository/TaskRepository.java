@@ -2,7 +2,6 @@ package com.team8.team_management_service.repository;
 
 import com.team8.team_management_service.entity.Task;
 import com.team8.team_management_service.entity.Teammate;
-import com.team8.team_management_service.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

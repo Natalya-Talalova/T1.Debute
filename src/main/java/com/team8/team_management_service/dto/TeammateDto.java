@@ -15,7 +15,7 @@ import java.util.Set;
 public class TeammateDto {
 
     private final Long id;
-    private final UserDto user;
+    private final Integer userId;
     private final TeamDto team;
     @NotNull
     private final Set<TeammateRole> roles;

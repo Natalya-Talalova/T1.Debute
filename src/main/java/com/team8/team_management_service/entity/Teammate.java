@@ -21,9 +21,8 @@ public class Teammate {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private User user;
+    private Integer userId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "team_id", nullable = false, updatable = false)
