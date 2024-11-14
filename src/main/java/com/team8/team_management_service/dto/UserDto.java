@@ -20,7 +20,7 @@ public class UserDto implements Serializable {
     @Size(message = "Имя должно быть длиной от 2 до 256 символов", min = 2, max = 256)
     @NotBlank
     private final String name;
-    @Size(message = "Имя должно быть длиной от 2 до 256 символов", min = 2, max = 256)
+    @Size(message = "Юзернейм должно быть длиной от 2 до 256 символов", min = 2, max = 256)
     @NotBlank
     private final String username;
     @Size(message = "Пароль должен быть длиной от 2 до 256 символов", min = 2, max = 256)
@@ -34,21 +34,21 @@ public class UserDto implements Serializable {
     private final String position;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
+    private final String experience;
+    @Size(message = "Мессенджер должен быть длиной от 2 до 256 символов", min = 2, max = 256)
     private final String bio;
     @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
-    private final String messengerContact;
-    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
+    private final String messenger;
+    @Size(message = "Номер телефона должен быть длиной от 2 до 256 символов", min = 2, max = 256)
     @NotBlank
     private final String phoneNumber;
-    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
+    @Size(message = "Навыки должны быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final String skills;
-    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
+    @Size(message = "Область ответсвенности должна быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final String areaOfResponsibility;
-
-    @Size(message = "Опыт должен быть длиной от 2 до 2048 символов", min = 2, max = 2048)
     @NotBlank
     private final boolean isVisibility;
 }
