@@ -1,16 +1,12 @@
 package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.UserDto;
-import com.team8.team_management_service.entity.User;
-import com.team8.team_management_service.repository.UserRepository;
 import com.team8.team_management_service.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

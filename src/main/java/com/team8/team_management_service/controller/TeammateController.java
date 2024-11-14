@@ -1,6 +1,7 @@
 package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.TeammateDto;
+import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.Team;
 import com.team8.team_management_service.entity.TeammateRole;
 import com.team8.team_management_service.service.TeammateService;
@@ -16,8 +17,6 @@ import java.util.List;
 @RequestMapping("/teams/{teamId}/teammates")
 @AllArgsConstructor
 public class TeammateController {
-
-    //TODO: добавить фото профиля команды
 
     private final TeammateService teammateService;
 
@@ -66,5 +65,11 @@ public class TeammateController {
     public List<Team> findTeamsByUserId(@RequestParam("userId") Long userId) {
         return teammateService.findTeamsByUserId(userId);
 
+    }
+
+    @Operation(summary = "Получить всех пользователей команды")
+    @GetMapping("/team/{teamId}/users")
+    public List<UserDto> getUsersByTeamId(@PathVariable Long teamId) {
+        return teammateService.getUsersByTeamId(teamId);
     }
 }

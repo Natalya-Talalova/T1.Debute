@@ -2,6 +2,7 @@ package com.team8.team_management_service.controller;
 
 import com.team8.team_management_service.dto.TaskDto;
 import com.team8.team_management_service.service.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,32 +17,38 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    @Operation(summary = "Получить все задачи участника команды")
     @GetMapping
     public List<TaskDto> getAllTasks(@PathVariable Long teammateId) {
         return taskService.findAll(teammateId);
     }
 
+    @Operation(summary = "Получить задачу участника команды по id")
     @GetMapping("/{taskId}")
     public TaskDto getTaskById(@PathVariable Long teammateId, @PathVariable Long taskId) {
         return taskService.findById(teammateId, taskId);
     }
 
+    @Operation(summary = "Создать задачу участника команды")
     @PostMapping
     public ResponseEntity<TaskDto> createTask(@PathVariable Long teammateId, @RequestBody TaskDto taskDto) {
         TaskDto createdTask = taskService.create(teammateId, taskDto);
         return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Обновить задачу участника команды")
     @PutMapping("/{taskId}")
     public TaskDto updateTask(@PathVariable Long teammateId, @PathVariable Long taskId, @RequestBody TaskDto taskDto) {
         return taskService.update(teammateId, taskDto, taskId);
     }
 
+    @Operation(summary = "Частичное обновление задачи участника команды")
     @PatchMapping("/{taskId}")
     public TaskDto partialUpdateTask(@PathVariable Long teammateId, @PathVariable Long taskId, @RequestBody TaskDto taskDto) {
         return taskService.partialUpdate(teammateId, taskDto, taskId);
     }
 
+    @Operation(summary = "Удалить задачу участника команды")
     @DeleteMapping("/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long teammateId, @PathVariable Long taskId) {
         taskService.delete(teammateId, taskId);

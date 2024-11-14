@@ -4,7 +4,7 @@ import com.team8.team_management_service.dto.UserDto;
 import com.team8.team_management_service.entity.User;
 import com.team8.team_management_service.exception.EntityNotFoundByIdException;
 import com.team8.team_management_service.mapper.UserMapper;
-import com.team8.team_management_service.repository.UserRepository;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
